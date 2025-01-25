@@ -4,9 +4,9 @@
         <textarea class="form-control text-sm" placeholder="Viết câu trả lời của bạn" name="dataReview[content]" id="reply-content"
             data-name="@{{ $params['fullname'] }}:" rows="5"></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group hidden">
         <div class="row row-10">
-            <div class="col-4 mg-col-10 hidden">
+            <div class="col-4 mg-col-10 ">
                 <input type="text" class="form-control text-sm" name="dataReview[id_user]" id="review-id_user"
                     placeholder="Số điện thoại *" value="{{ Auth::guard('member')->user()->id }}">
             </div>
