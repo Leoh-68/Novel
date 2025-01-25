@@ -1,0 +1,46 @@
+:root {
+  --color-text-detail: #111;
+  --color-background-detail: #ccc;
+  --font-size-detail: 16px;
+}
+
+.dark-mode {
+  --color-text-detail: #fff;
+  --color-background-detail: #111;
+  --font-size-detail: 16px;
+}
+
+.wrap-detail-chapter {
+  background-color: var(--color-background-detail);
+  font-size: var(--font-size-detail);
+}
+.wrap-detail-chapter .tool {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  bottom: 200px;
+  right: 20px;
+}
+.wrap-detail-chapter .tool .btn-tool {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-background-detail);
+  background-color: var(--color-text-detail);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrap-detail-chapter .tool .btn-tool i {
+  font-size: 16px;
+  color: var(--color-background-detail);
+}
+.wrap-detail-chapter .title-chapter {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.wrap-detail-chapter * {
+  color: var(--color-text-detail);
+}

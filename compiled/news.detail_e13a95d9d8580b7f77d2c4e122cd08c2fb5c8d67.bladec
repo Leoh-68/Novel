@@ -1,0 +1,76 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <section>
+ <div class="max-width py-3 mt-4">
+ <?php if(!empty($rowDetail)): ?>
+ <div class="title-detail">
+ <h1><?= $rowDetail->namevi ?></h1>
+ </div>
+ <div class="meta-toc">
+ <div class="box-readmore">
+ <ul class="toc-list" data-toc="article" data-toc-headings="h1, h2, h3"></ul>
+ </div>
+ </div>
+ <div class="content-main baonoidung w-clear" id="toc-content"> <?php echo Func::decodeHtmlChars($rowDetail['contentvi']); ?></div>
+ <div class="share">
+ <b>Chia sẻ:</b>
+ <div class="social-plugin w-clear">
+ <?php  $this->startComponent('component.share'); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ <?php else: ?>
+ <div class="alert alert-warning w-100" role="alert">
+ <strong>Đang cập nhật dữ liệu</strong>
+ </div>
+ <?php endif; ?>
+ </div>
+ </section>
+ <section>
+ <div class="max-width py-3">
+ <div class="title-main">
+ <span>Bài viết liên quan</span>
+ </div>
+ <?php if(!empty($news)): ?>
+ <div class="grid-product">
+ <?php $__currentLoopData = $news; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <?php  $this->startComponent('component.itemNews', ['news' => $v]); ?>
+ <?php echo $this->renderComponent(); ?>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ <?php endif; ?>
+ </div>
+ </section>
+<?php $this->stopSection(); ?>
+<?php if(!isset($__pushonce__scripts)): $__pushonce__scripts=1;  $this->startPush('scripts'); ?>
+ <script src="<?php echo (isset($this->assetDict[('assets/toc/toc.js')]))?$this->assetDict[('assets/toc/toc.js')]:$this->baseUrl.'/'.('assets/toc/toc.js'); ?>"></script>
+ <script>
+ if (isExist($('.toc-list'))) {
+ $('.toc-list').toc({
+ content: 'div#toc-content',
+ headings: 'h2,h3,h4'
+ });
+ if (!$('.toc-list li').length) $('.meta-toc').hide();
+ if (!$('.toc-list li').length) $('.meta-toc .mucluc-dropdown-list_button').hide();
+ $('.toc-list')
+ .find('a')
+ .click(function () {
+ var x = $(this).attr('data-rel');
+ goToByScroll(x);
+ });
+ $('body').on('click', '.mucluc-dropdown-list_button', function () {
+ $('.box-readmore').slideToggle(200);
+ });
+ $(document).scroll(function () {
+ var y = $(this).scrollTop();
+ if (y > 300) {
+ $('.meta-toc').addClass('fiedx');
+ } else {
+ $('.meta-toc').removeClass('fiedx');
+ }
+ });
+ }
+ </script>
+<?php $this->stopPush(); endif; ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

@@ -1,0 +1,45 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <section>
+ <div class="max-width py-3 mt-4">
+ <?php if(!empty($rowDetail)): ?>
+ <div class="title-detail text-center">
+ <h1>Danh sách thành viên của <?php echo \html_entity_decode(($com ?? '') == 'phan-khu' ? 'Phân khu' : 'Đường'??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ <?php echo \html_entity_decode($rowDetail->namevi??'', ENT_QUOTES, 'UTF-8'); ?></h1>
+ </div>
+
+ <?php if(!empty($listPlace)): ?>
+ <div class="row">
+ <?php $__currentLoopData = $listPlace; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="col-6 col-lg-3">
+ <div class="member_load">
+ <div class="member_load_item">
+ <a href="profile/<?php echo \html_entity_decode($v->id??'', ENT_QUOTES, 'UTF-8'); ?>" class=" text-decoration-none ">
+ <div class="member_load_item_img">
+ <img onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/500x500x1/assets/images/noimage.png.webp')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('user', '500x500x1', $v->avatar, 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="">
+ </div>
+ <div class="member_load_item_name text-center">
+ <?php echo \html_entity_decode($v->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </div>
+ </a>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ <?php endif; ?>
+ <?php else: ?>
+ <div class="alert alert-warning w-100" role="alert">
+ <strong>Đang cập nhật dữ liệu</strong>
+ </div>
+ <?php endif; ?>
+ </div>
+ </section>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

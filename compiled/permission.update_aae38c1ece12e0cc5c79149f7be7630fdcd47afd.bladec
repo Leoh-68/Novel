@@ -1,0 +1,1702 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <div class="container-xxl flex-grow-1 container-p-y container-fluid">
+ <div class="app-ecommerce">
+ <form class="validation-form" novalidate method="post" action="<?php echo \html_entity_decode(url('permission_save')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ enctype="multipart/form-data">
+ <?php  $this->startComponent('component.buttonAdd'); ?>
+ <?php echo $this->renderComponent(); ?>
+
+ <div class="row">
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Thông tin nhóm quyền </h3>
+ </div>
+ <div class="card-body card-article">
+ <div class="card">
+ <ul class="nav nav-tabs" id="custom-tabs-three-tab-lang" role="tablist">
+ <li class="nav-item">
+ <a class="nav-link active" id="tabs-lang" data-bs-toggle="tab"
+ data-bs-target="#tabs-lang-active" role="tab"
+ aria-controls="tabs-lang-active" aria-selected="true">Thông Tin Chung</a>
+ </li>
+ </ul>
+ <div class="tab-content" id="custom-tabs-three-tabContent-lang">
+ <div class="tab-pane fade show active" id="tabs-lang-active" role="tabpanel"
+ aria-labelledby="tabs-lang">
+ <div class="form-group">
+ <label class="form-label" for="name">Tên nhóm quyền :</label>
+ <input type="text" class="form-control for-seo text-sm" name="name"
+ id="name" placeholder="Tên nhóm quyền"
+ value="<?php echo \html_entity_decode($item['name'] ?? ''??'', ENT_QUOTES, 'UTF-8'); ?>" required>
+ </div>
+ <div class="form-group d-inline-block mb-0">
+ <label for="hienthi-checkbox"
+ class="d-inline-block align-middle mb-0 mr-2">Kích hoạt:</label>
+ <label class="switch switch-success">
+ <input type="checkbox" name="status[hienthi]" value="hienthi"
+ <?php echo \html_entity_decode(($item['status'] ?? '') == 'hienthi' ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ class="switch-input custom-control-input show-checkbox"
+ id="hienthi-checkbox">
+ <span class="switch-toggle-slider">
+ <span class="switch-on">
+ <i class="ti ti-check"></i>
+ </span>
+ <span class="switch-off">
+ <i class="ti ti-x"></i>
+ </span>
+ </span>
+ </label>
+ </div>
+ <div class="form-group d-inline-block ms-5 mb-0">
+ <label for="numb" class="d-inline-block align-middle mb-0 mr-2">Số thứ
+ tự:</label>
+ <input type="number"
+ class="form-control form-control-mini w-25 text-left d-inline-block align-middle text-sm"
+ min="0" name="numb" id="numb" placeholder="Số thứ tự"
+ value="<?php echo \html_entity_decode($item['numb'] ?? 1??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <?php if(!empty(config('type.product'))): ?>
+ <?php $__currentLoopData = config('type.product'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền <?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?></h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <div class="form-group row mb-0">
+ <?php if(!empty($v['categories']['list'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_categories_list_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 1:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_list_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.list.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_list_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_list_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('product.list.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_list_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_list_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('product.list.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_list_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_list_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('product.list.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_list_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['categories']['cat'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_categories_cat_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 2:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_cat_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.cat.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_cat_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_cat_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('product.cat.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_cat_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_cat_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('product.cat.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_cat_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_cat_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('product.cat.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_cat_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['categories']['item'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_categories_cat_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 3:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_item_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.item.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_item_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_item_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('product.item.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_item_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_item_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('product.item.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_item_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_item_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('product.item.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_item_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['categories']['sub'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_categories_sub_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 4:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_sub_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.sub.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_sub_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_sub_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('product.sub.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_sub_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_sub_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('product.sub.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_sub_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_sub_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('product.sub.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_sub_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['brand'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_brand_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh mục
+ hãng:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_brand_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.brand.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.brand.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_brand_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_brand_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.brand.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('product.brand.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_brand_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_brand_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.brand.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('product.brand.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_brand_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_brand_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.brand.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('product.brand.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_brand_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_product_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php if(!empty($v['gallery'])): ?>
+ <?php $__currentLoopData = $v['gallery']; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k1 => $v1): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label
+ class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_gallery_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v1['title_main_photo']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div
+ class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_gallery_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.man"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.' . $k1 . '.gallery.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_gallery_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem
+ danh sách</label>
+ </div>
+ <div
+ class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_gallery_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.add"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.' . $k1 . '.gallery.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_gallery_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div
+ class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_gallery_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.edit"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.' . $k1 . '.gallery.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_gallery_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_gallery_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.delete"
+ <?php echo \html_entity_decode(in_array('product.' . $k . '.' . $k1 . '.gallery.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_gallery_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+ <?php if(!empty($v['excel'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_categories_import_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Import sản phẩm:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_import_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.import.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.import.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_import_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Import</label>
+ </div>
+ </div>
+ </div>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_product_categories_export_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Export sản phẩm:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_product_categories_export_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="product.export.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('product.export.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_product_categories_export_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Export</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.order'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Quản lý đơn hàng</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.order'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_order_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_order_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="order.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('order.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_order_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_order_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="order.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('order.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_order_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_order_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="order.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('order.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_order_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_order_excel_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="order.excel.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('order.excel.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_order_excel_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xuất
+ excel</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.properties'))): ?>
+ <?php $__currentLoopData = config('type.properties'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền <?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <div class="form-group row mb-0">
+ <?php if(!empty($v['categories']['list'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_properties_categories_list_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 1:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_categories_list_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('properties.list.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_properties_categories_list_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_categories_list_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('properties.list.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_properties_categories_list_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_categories_list_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('properties.list.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_properties_categories_list_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_categories_list_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('properties.list.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_properties_categories_list_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_properties_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('properties.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_properties_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('properties.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_properties_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('properties.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_properties_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_properties_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="properties.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('properties.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_properties_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.news'))): ?>
+ <?php $__currentLoopData = config('type.news'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <?php if(empty($v['dropdown'])): ?>
+ <?php continue; ?>
+ <?php endif; ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền <?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <div class="form-group row mb-0">
+ <?php if(!empty($v['categories']['list'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_categories_list_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 1:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_list_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('news.list.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_list_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_list_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('news.list.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_list_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_list_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('news.list.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_list_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_list_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.list.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('news.list.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_list_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['categories']['cat'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_categories_cat_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 2:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_cat_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('news.cat.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_cat_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_cat_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('news.cat.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_cat_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_cat_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('news.cat.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_cat_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_cat_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.cat.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('news.cat.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_cat_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['categories']['item'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_categories_item_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 3:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_item_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('news.item.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_item_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_item_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('news.item.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_item_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_item_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('news.item.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_item_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_item_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.item.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('news.item.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_item_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v['categories']['sub'])): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_categories_sub_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b>Danh
+ mục cấp 4:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_sub_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('news.sub.' . $k . '.sub.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_sub_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_sub_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('news.sub.' . $k . '.sub.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_sub_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_sub_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('news.sub.' . $k . '.sub.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_sub_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_categories_sub_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.sub.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('news.sub.' . $k . '.sub.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_categories_sub_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php if(!empty($v['gallery'])): ?>
+ <?php $__currentLoopData = $v['gallery']; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k1 => $v1): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label
+ class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_gallery_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v1['title_main_photo']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div
+ class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.man"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem
+ danh sách</label>
+ </div>
+ <div
+ class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.add"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div
+ class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.edit"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.delete"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.comment'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền bình luận</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.comment'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_comment_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_comment_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="comment.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('comment.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_comment_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_comment_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="comment.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('comment.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_comment_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_comment_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="comment.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('comment.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_comment_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_comment_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="comment.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('comment.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_comment_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <?php if(!empty(Func::checkShowNews(config('type.news'))) || !empty(config('type.static'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền bài viết</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.news'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <?php if(!empty($v['dropdown'])): ?>
+ <?php continue; ?>
+ <?php endif; ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_new_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php if(!empty($v['gallery'])): ?>
+ <?php $__currentLoopData = $v['gallery']; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k1 => $v1): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_new_gallery_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v1['title_main_photo']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.man"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.add"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm
+ mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.edit"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh
+ sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_new_gallery_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="news.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>.gallery.delete"
+ <?php echo \html_entity_decode(in_array('news.' . $k . '.' . $k1 . '.gallery.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_new_gallery_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k1??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php $__currentLoopData = config('type.static'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_static_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_static_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="static.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('static.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_static_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem / Chỉnh
+ sửa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.photo'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền hình ảnh / video</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.photo'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <?php if($v['kind'] == 'album'): ?>
+ <?php continue; ?>
+ <?php endif; ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="photo.<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('photo.' . $v['kind'] . '.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem / Chỉnh
+ sửa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php $__currentLoopData = config('type.photo'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <?php if($v['kind'] == 'static'): ?>
+ <?php continue; ?>
+ <?php endif; ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="photo.<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('photo.' . $v['kind'] . '.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="photo.<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('photo.' . $v['kind'] . '.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="photo.<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('photo.' . $v['kind'] . '.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="photo.<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('photo.' . $v['kind'] . '.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label
+ for="permission_photo-<?php echo \html_entity_decode($v['kind']??'', ENT_QUOTES, 'UTF-8'); ?>_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.newsletters'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền thông báo email</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.newsletters'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_newsletters_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_newsletters_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="newsletters.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('newsletters.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_newsletters_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_newsletters_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="newsletters.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('newsletters.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_newsletters_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_newsletters_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="newsletters.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('newsletters.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_newsletters_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_newsletters_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="newsletters.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('newsletters.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_newsletters_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.tags'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền tags</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.tags'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_tags_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_tags_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="tags.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('tags.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_tags_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_tags_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="tags.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('tags.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_tags_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_tags_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="tags.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('tags.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_tags_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_tags_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="tags.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('tags.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_tags_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.seo'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền seo page</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.seo.page'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_seopage_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_seopage_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="seopage.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('seopage.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_seopage_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem / Chỉnh
+ sửa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.place'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền địa điểm</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.place'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_place_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_place_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="place.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('place.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_place_view_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_place_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="place.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.add"
+ <?php echo \html_entity_decode(in_array('place.' . $k . '.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_place_add_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_place_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="place.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.edit"
+ <?php echo \html_entity_decode(in_array('place.' . $k . '.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_place_edit_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_place_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="place.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.delete"
+ <?php echo \html_entity_decode(in_array('place.' . $k . '.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_place_delete_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.extensions'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền extensions</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.extensions'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_extensions_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_extensions_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="extensions.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('extensions.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_extensions_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem / Chỉnh
+ sửa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.users.active'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền User</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php if(!empty(config('type.users.admin'))): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_users"><b class="text-capitalize">User
+ admin:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id=" permission_users_view"
+ value="users.man"
+ <?php echo \html_entity_decode(in_array('users.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_users_view"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_users_add"
+ value="users.add"
+ <?php echo \html_entity_decode(in_array('users.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_users_add"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_users_edit"
+ value="users.edit"
+ <?php echo \html_entity_decode(in_array('users.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_users_edit"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_users_delete"
+ value="users.delete"
+ <?php echo \html_entity_decode(in_array('users.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_users_delete"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.users.member'))): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_members"><b class="text-capitalize">User
+ member:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id=" permission_members_view"
+ value="members.man"
+ <?php echo \html_entity_decode(in_array('members.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_members_view"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_members_add"
+ value="members.add"
+ <?php echo \html_entity_decode(in_array('members.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_members_add"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_members_edit"
+ value="members.edit"
+ <?php echo \html_entity_decode(in_array('members.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_members_edit"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_members_delete"
+ value="members.delete"
+ <?php echo \html_entity_decode(in_array('members.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_members_delete"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty(config('type.users.permission'))): ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_permission"><b class="text-capitalize">Phân
+ quyền:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id=" permission_permission_view"
+ value="permission.man"
+ <?php echo \html_entity_decode(in_array('permission.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_permission_view"
+ class="form-check-label font-weight-normal mb-0">Xem danh
+ sách</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_permission_add"
+ value="permission.add"
+ <?php echo \html_entity_decode(in_array('permission.add', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_permission_add"
+ class="form-check-label font-weight-normal mb-0">Thêm mới</label>
+ </div>
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_permission_edit"
+ value="permission.edit"
+ <?php echo \html_entity_decode(in_array('permission.edit', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_permission_edit"
+ class="form-check-label font-weight-normal mb-0">Chỉnh sửa</label>
+ </div>
+ <div class="form-check d-inline-block align-middle text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]" id="permission_permission_delete"
+ value="permission.delete"
+ <?php echo \html_entity_decode(in_array('permission.delete', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_permission_delete"
+ class="form-check-label font-weight-normal mb-0">Xóa</label>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ <?php if(!empty(config('type.setting'))): ?>
+ <div class="col-12 col-lg-12">
+ <div class="card mb-2">
+ <div class="card-header">
+ <h3 class="card-title text-capitalize"> Danh sách quyền Setting</h3>
+ </div>
+ <div class="card-body card-article pb-0">
+ <?php $__currentLoopData = config('type.setting'); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="form-group row last:!mb-0">
+ <label class="d-inline-block align-middle mb-2 mr-2 text-md col-md-3"
+ for="permission_setting_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"><b
+ class="text-capitalize"><?php echo \html_entity_decode($v['title_main']??'', ENT_QUOTES, 'UTF-8'); ?>:</b></label>
+ <div class="col-md-7">
+ <div class="form-check d-inline-block align-middle me-4 text-md">
+ <input type="checkbox" class="form-check-input"
+ name="dataPermission[]"
+ id="permission_setting_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ value="setting.<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>.man"
+ <?php echo \html_entity_decode(in_array('setting.' . $k . '.man', $listPermissionByRole) ? 'checked' : ''??'', ENT_QUOTES, 'UTF-8'); ?>>
+ <label for="permission_setting_man_<?php echo \html_entity_decode($k??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="form-check-label font-weight-normal mb-0">Xem / Chỉnh
+ sửa</label>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+ </div>
+
+ <input type="hidden" name="id" value="<?php echo \html_entity_decode($item['id'] ?? 0??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <input name="csrf_token" type="hidden" value="<?php echo \html_entity_decode(csrf_token()??'', ENT_QUOTES, 'UTF-8'); ?>">
+
+ <?php  $this->startComponent('component.buttonAdd'); ?>
+ <?php echo $this->renderComponent(); ?>
+
+ </form>
+ </div>
+ </div>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

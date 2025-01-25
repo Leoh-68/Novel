@@ -1,0 +1,112 @@
+<div class="modal-detail" x-data="{ open: false }" @showts.window="open=true;console.log($event.detail)" x-cloak
+ x-show="open" x-transition>
+ <div class="content-modal-detail">
+ <div x-data="{ tab: 'tab1' }" @showts.window="tab = $event.detail.type">
+ <ul class="tabs">
+ <?php if($rowDetailPhoto->isNotEmpty()): ?>
+ <li :class="{ 'active': tab === 'tab1' }" @click="tab = 'tab1'">Điểm nổi bật</li>
+ <?php endif; ?>
+ <?php if($rowDetailPhoto1->isNotEmpty()): ?>
+ <li :class="{ 'active': tab === 'tab2' }" @click="tab = 'tab2'">Đen</li>
+ <?php endif; ?>
+ <li :class="{ 'active': tab === 'tab3' }" @click="tab = 'tab3'">Thông số kỹ thuật</li>
+ <li :class="{ 'active': tab === 'tab4' }" @click="tab = 'tab4'">Thông tin sản phẩm</li>
+ </ul>
+ <?php if($rowDetailPhoto->isNotEmpty()): ?>
+ <div x-cloak x-show="tab === 'tab1'" class="tab-content active">
+ <div class="slick_photo1  overflow-hidden">
+ <a id="Zoom-1" class="MagicZoom"
+ data-options="zoomMode: false; hint: off; rightClick: true; selectorTrigger: click; expandCaption: false; history: false;"
+ href="<?php echo \html_entity_decode(assets_photo('product', '', $rowDetail['photo'])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <img class=""
+ onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/950x600x1/assets/images/noimage.png')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $rowDetail['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </a>
+ </div>
+ <div class="album-product my-2 mt-3">
+ <div class="p-relative">
+ <div class="owl-page owl-carousel owl-theme"
+ data-items="screen:0|items:4|margin:10,screen:425|items:4|margin:10,screen:575|items:4|margin:10,screen:767|items:5|margin:10,screen:991|items:6|margin:10,screen:1199|items:7|margin:10"
+ data-rewind="1" data-autoplay="1" data-loop="0" data-lazyload="0" data-mousedrag="0"
+ data-touchdrag="0" data-smartspeed="800" data-autoplayspeed="800"
+ data-autoplaytimeout="5000" data-dots="0"
+ data-animations="animate__fadeInDown, animate__backInUp, animate__rollIn, animate__backInRight, animate__zoomInUp, animate__backInLeft, animate__rotateInDownLeft, animate__backInDown, animate__zoomInDown, animate__fadeInUp, animate__zoomIn"
+ data-nav="1" data-navcontainer=".control-detail-album">
+ <a class="thumb-pro-detail border-[1px] rounded-[8px]" data-zoom-id="Zoom-1"
+ href="<?php echo \html_entity_decode(assets_photo('product', '', $rowDetail['photo'])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"
+ data-image="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $rowDetail['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"><img
+ class=" !mb-0 !pb-0 !border-0"
+ onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/950x600x1/assets/images/noimage.png')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $rowDetail['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"></a>
+ <?php $__currentLoopData = $rowDetailPhoto; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <a class="thumb-pro-detail border-[1px] rounded-[8px]" data-zoom-id="Zoom-1"
+ href="<?php echo \html_entity_decode(assets_photo('product', '', $v['photo'])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"
+ data-image="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $v['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"><img
+ class=" !mb-0 !pb-0 !border-0"
+ onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/950x600x1/assets/images/noimage.png')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $v['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"></a>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ <div class="control-detail-album control-owl transition"></div>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <?php if($rowDetailPhoto1->isNotEmpty()): ?>
+ <div x-cloak x-show="tab === 'tab2'" class="tab-content">
+ <div class="slick_photo1  overflow-hidden">
+ <a id="Zoom-1" class="MagicZoom"
+ data-options="zoomMode: false; hint: off; rightClick: true; selectorTrigger: click; expandCaption: false; history: false;"
+ href="<?php echo \html_entity_decode(assets_photo('product', '', $rowDetailPhoto1[0]['photo'])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($rowDetailPhoto1[0]['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <img class=""
+ onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/950x600x1/assets/images/noimage.png')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $rowDetailPhoto1[0]['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($rowDetailPhoto1[0]['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </a>
+ </div>
+ <div class="album-product my-2 mt-3">
+ <div class="p-relative">
+ <div class="owl-page owl-carousel owl-theme"
+ data-items="screen:0|items:4|margin:10,screen:425|items:4|margin:10,screen:575|items:4|margin:10,screen:767|items:5|margin:10,screen:991|items:6|margin:10,screen:1199|items:7|margin:10"
+ data-rewind="1" data-autoplay="1" data-loop="0" data-lazyload="0" data-mousedrag="0"
+ data-touchdrag="0" data-smartspeed="800" data-autoplayspeed="800"
+ data-autoplaytimeout="5000" data-dots="0"
+ data-animations="animate__fadeInDown, animate__backInUp, animate__rollIn, animate__backInRight, animate__zoomInUp, animate__backInLeft, animate__rotateInDownLeft, animate__backInDown, animate__zoomInDown, animate__fadeInUp, animate__zoomIn"
+ data-nav="1" data-navcontainer=".control-detail-album">
+ <?php $__currentLoopData = $rowDetailPhoto1; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <a class="thumb-pro-detail border-[1px] rounded-[8px]" data-zoom-id="Zoom-1"
+ href="<?php echo \html_entity_decode(assets_photo('product', '', $v['photo'])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"
+ data-image="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $v['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"><img
+ class=" !mb-0 !pb-0 !border-0"
+ onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/950x600x1/assets/images/noimage.png')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('product', '950x600x1', $v['photo'], 'watermarks')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($rowDetail['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"></a>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ <div class="control-detail-album control-owl transition"></div>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+ <div x-cloak x-show="tab === 'tab3'" class="tab-content">
+ <?php echo Func::decodeHtmlChars($rowDetail['parametervi']); ?>
+
+ </div>
+ <div x-cloak x-show="tab === 'tab4'" class="tab-content">
+ <?php echo Func::decodeHtmlChars($rowDetail['contentvi']); ?>
+
+ </div>
+ </div>
+ </div>
+ <div class="btn-closemenu close-tab" x-on:click="open = ! open">Đóng</div>
+</div>

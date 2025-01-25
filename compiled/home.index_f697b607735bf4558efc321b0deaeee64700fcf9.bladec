@@ -1,0 +1,681 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <?php if($productNB->isNotEmpty()): ?>
+ <div class="wrap-slider">
+ <div class="wrap-content">
+ <div class="grid grid-cols-5 gap-[17px] mr-[100px] items-center">
+ <div class="col-span-4">
+ <div class="slider-novel-left swiper ">
+ <div class="swiper-wrapper">
+ <?php $__currentLoopData = $productNB; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="swiper-slide">
+ <div class="novel-item">
+ <div class="grid grid-cols-3 items-center gap-[50px]">
+ <div class="info col-span-2">
+ <a href="<?php echo \html_entity_decode($v->slugvi??'', ENT_QUOTES, 'UTF-8'); ?>" class="text-decoration-none">
+ <div class="name line-clamp-2">
+ <?php echo \html_entity_decode($v->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </div>
+ </a>
+ <div class="cover-properties-info">
+ <?php if(!empty($v->getAuthor->fullname)): ?>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-author.png"
+ alt="">
+ <span>
+ <strong>
+ Tác giả:
+ </strong>
+ <?php echo \html_entity_decode($v->getAuthor->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <?php endif; ?>
+ <?php if($v->tags->isNotEmpty()): ?>
+ <div class="items-properties-info tags">
+ <img src="assets/images/TempImages/ico-tl.png"
+ alt="">
+ <span>
+ <strong>
+ Thể loại:
+ </strong>
+ <?php $__currentLoopData = $v->tags; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $ktag => $tag): $loop = $this->incrementLoopIndices();  ?>
+ <a href="<?php echo \html_entity_decode($tag->slugvi??'', ENT_QUOTES, 'UTF-8'); ?>"
+ class="text-decoration-none">
+ <?php echo \html_entity_decode($tag->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </a>
+ <?php if($ktag < $v->tags->count() - 1): ?>
+ ,
+ <?php endif; ?>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </span>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v->view)): ?>
+ <div class="items-properties-info view">
+ <img src="assets/images/TempImages/ico-view-2.png"
+ alt="">
+ <span>
+ <strong>
+ Lượt đọc:
+ </strong>
+ <?php echo \html_entity_decode($v->view??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <?php endif; ?>
+ <?php if(!empty($v->favorite)): ?>
+ <div class="items-properties-info favorite">
+ <img src="assets/images/TempImages/ico-like-2.png"
+ alt="">
+ <span>
+ <strong>
+ Lượt thích: <?php echo \html_entity_decode($v->favorite??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </strong>
+ </span>
+ </div>
+ <?php endif; ?>
+ </div>
+ <div class="desc">
+ <span class="line-clamp-9">
+ <?php echo \html_entity_decode($v->descvi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <div class="btn-rn">
+ <a href=""
+ class="flex items-center gap-[10px] text-decoration-none ">
+ Đọc ngay
+ <div class="move-left-right">
+ <img src="assets/images/TempImages/ico-rn.png"
+ alt="">
+ </div>
+ </a>
+ </div>
+ </div>
+
+ <div class="image main-cover-img-novel  col-span-1">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $v,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ <div class="col-span-1">
+ <div class="cover-novel-right p-[17px]">
+ <div class="slider-novel-right swiper">
+ <div class="swiper-wrapper">
+ <?php 
+ // $productNB = $productNB->slice(1, -1);
+ // $productNB = $productNB->merge($productNB);
+ // dd($productNB);
+ ?>
+ <?php $__currentLoopData = $productNB; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="swiper-slide">
+ <div class="novel-item">
+ <div class="image main-cover-img-novel">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $v,
+ 'class' => 'noClass',
+ 'aspect' => 'noAspect',
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+
+ <div class="wrap-btn-cash">
+ <div class="wrap-content">
+ <div class="item-btn-cash">
+ <a href="nap-hoa" class=" text-decoration-none ">
+ <span>
+ Bấm vào đây để nạp hoa
+ </span>
+ </a>
+ </div>
+ </div>
+ </div>
+
+ <?php if($productNB->isNotEmpty()): ?>
+ <div class="wrap-novel-home padding-main">
+ <div class="wrap-content">
+ <div class="novel-home">
+ <div class="novel-home-top grid grid-cols-4 gap-[30px]">
+ <div class="title-tags-main">
+ <span>
+ HỒNG CHI ĐỀ XUẤT
+ </span>
+ </div>
+ <div class="title-tags-main active">
+ <span>
+ HỒNG CHI ĐỀ XUẤT
+ </span>
+ </div>
+ </div>
+
+ <div class="cover-novel-home">
+ <div class="grid grid-cols-5 gap-[20px]">
+ <?php $__currentLoopData = $productNB; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class="item relative">
+ <a href="<?php echo \html_entity_decode($item->slugvi??'', ENT_QUOTES, 'UTF-8'); ?>" class=" text-decoration-none ">
+ <div class="image main-cover-img-novel">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $item,
+ 'effect' => 'noneEff',
+ 'aspect' => false,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </a>
+ <div class="info">
+
+ <div class="info-content">
+ <a href="<?php echo \html_entity_decode($item->slugvi??'', ENT_QUOTES, 'UTF-8'); ?>" class=" text-decoration-none ">
+ <div class="name">
+ <span>
+ <?php echo \html_entity_decode($item->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ </a>
+ <div class="cover-info">
+ <div class="grid grid-cols-2 items-end">
+ <div class="left">
+ <?php if(!empty($item->getAuthor->fullname)): ?>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-author.png"
+ alt="">
+ <span>
+ <strong>
+ Tác giả:
+ </strong>
+ <?php echo \html_entity_decode($item->getAuthor->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <?php endif; ?>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-author.png"
+ alt="">
+ <span>
+ <strong>
+ Xuất bản
+ </strong>
+ <?php echo \html_entity_decode(\Carbon\Carbon::parse($item->created_at)->format('d/m/Y')??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ </div>
+ <div class="right flex gap-2">
+ <div class="btn-rn flex items-center gap-[5px]">
+ <img src="assets/images/TempImages/ico-tl.png" alt="">
+ <span>
+ ĐỌC TRUYỆN
+ </span>
+ </div>
+ <div class="btn-favor">
+ <i class="fa-regular fa-heart"></i>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="desc">
+ <span class="line-clamp-4">
+ <?php echo \html_entity_decode($item->descvi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php continue; ?>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endif; ?>
+
+
+ <div class="wrap-ranking-1 padding-bottom-main">
+ <div class="wrap-content">
+ <div class="box-title-ranking mb-3">
+ <div class="title-main">
+ <h2>
+ Bảng xếp hạng
+ </h2>
+ </div>
+ <div class="text-center">
+ <img src="assets/images/TempImages/hoa.png" alt="">
+ </div>
+ </div>
+
+ <div class="cover-ranking-1">
+ <div class="grid grid-cols-2 gap-[150px]">
+ <div class="page">
+ <div class="title">
+ Truyện đọc nhiều nhất
+ </div>
+ <div class="cover-items">
+ <?php $__currentLoopData = $productMostView->take(5); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $kitem => $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class="item grid grid-cols-5 items-center mb-3 ">
+ <div class="col-span-4">
+ <div class="info">
+ <div class="name flex items-center gap-2">
+ <img src="assets/images/TempImages/rank-<?php echo \html_entity_decode($kitem + 1??'', ENT_QUOTES, 'UTF-8'); ?>.png"
+ alt="">
+ <span class="line-clamp-2">
+ <?php echo \html_entity_decode($item->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <?php if(!empty($item->getAuthor->fullname)): ?>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-author-black.png"
+ alt="">
+ <span>
+ <strong>
+ Tác giả:
+ </strong>
+ <?php echo \html_entity_decode($item->getAuthor->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <?php endif; ?>
+ <div class="items-properties-info view">
+ <img src="assets/images/TempImages/ico-view-black.png" alt="">
+ <span>
+ <strong>
+ Lượt đọc:
+ </strong>
+ <?php echo \html_entity_decode($item->view??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ </div>
+ </div>
+ <div class="col-span-1">
+ <div class="image text-end">
+ <div class="main-cover-img-novel-2">
+ <div class="cover-img">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $item,
+ 'thumb' => '70x115x1',
+ 'class' => 'noClass',
+ 'effect' => 'noneEff',
+ 'aspect' => false,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+
+ <div class="page">
+ <div class="title">
+ Tác giả chuyên cần
+ </div>
+ <div class="cover-items">
+ <?php $__currentLoopData = $membersMostChapter->take(5); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $kitem => $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class="item grid grid-cols-5 items-center mb-3 ">
+ <div class="col-span-4">
+ <div class="info">
+ <div class="name flex items-center gap-2">
+ <img src="assets/images/TempImages/rank-<?php echo \html_entity_decode($kitem + 1??'', ENT_QUOTES, 'UTF-8'); ?>.png"
+ alt="">
+ <span class="line-clamp-2">
+ <?php echo \html_entity_decode($item->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-chapter.png" alt="">
+ <span>
+ <strong>
+ Số chương đăng
+ </strong>
+ <?php echo \html_entity_decode($item['product_count']??'', ENT_QUOTES, 'UTF-8'); ?> chương
+ </span>
+ </div>
+ </div>
+ </div>
+ <div class="col-span-1">
+ <div class="image text-end">
+ <div class="avt">
+ <div class="cover-img rounded-full overflow-hidden inline-block">
+ <img onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/85x85x1/assets/images/noimage.png.webp')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('user', '85x85x1', $item['avatar'], 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($item->fullname??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+
+ <div class="wrap-novel-status bg-[#FFF5FB] padding-main">
+ <div class="wrap-content">
+ <div class="grid grid-cols-2 gap-[40px]">
+ <div class="page">
+ <div class="title-tags-main">
+ <span>
+ TRUYỆN ĐÃ HOÀN THÀNH
+ </span>
+ </div>
+ <div class="banner rounded-[10px] overflow-hidden mb-[20px]">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'photo',
+ 'type' => 'banner-home',
+ 'item' => $bannerHome->first(),
+ 'thumb' => '',
+ // 'var' => 'photo',
+ // 'effect' => 'hover-img scale-img',
+ // 'aspect' => '1/1',
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ <div class="novel-complete">
+ <div class="novel-complete-list">
+ <div class="grid grid-cols-2 gap-[20px]">
+ <?php $__currentLoopData = $productNB->take(4); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class="item relative">
+ <div class="image">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $item,
+ 'thumb' => '283x360x1',
+ 'class' => 'noClass',
+ 'aspect' => false,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ <div class="info">
+ <div class="name">
+ <span>
+ <?php echo \html_entity_decode($item->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <div class="info-cover flex flex-basis-1 items-center gap-[8px]">
+ <div class="avt rounded-full overflow-hidden inline-block">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $item,
+ 'thumb' => '40x40x1',
+ 'class' => 'noClass',
+ 'aspect' => false,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ <div class="ico">
+ <img src="assets/images/TempImages/ico-tl.png" alt="">
+ </div>
+ <div class="author">
+ <strong>
+ Tác giả:
+ </strong>
+ <span>
+ Khánh nè
+ </span>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="page">
+ <div class="title-tags-main">
+ <span>
+ TRUYỆN MỚI CẬP NHẬT
+ </span>
+ </div>
+
+ <div class="novel-update">
+ <div class="novel-update-list">
+ <?php $__currentLoopData = $productNB->take(4); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class=" item grid grid-cols-3 gap-[15px]">
+ <div class="image col-span-1">
+ <div class="cover-novel-update">
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'product',
+ 'type' => 'truyen',
+ 'item' => $item,
+ 'thumb' => '163x210x1',
+ 'aspect' => false,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ <div class="info col-span-2">
+ <div class="chapter">
+ <span>
+ Chương 34
+ </span>
+ </div>
+ <div class="name">
+ <span class="line-clamp-1">
+ <?php echo \html_entity_decode($item->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <div class="info-properties-cover">
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-author-black.png" alt="">
+ <span>
+ <strong>
+ Tác giả:
+ </strong>
+ Khánh nè
+ </span>
+ </div>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-pt.png" alt="">
+ <span>
+ <strong>
+ Thể loại:
+ </strong>
+ Khánh nè
+ </span>
+ </div>
+ <div class="ext grid grid-cols-2 gap-[10px]">
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-view-black.png" alt="">
+ <span>
+ <strong>
+ Lượt đọc
+ </strong>
+ Khánh nè
+ </span>
+ </div>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-like-black.png" alt="">
+ <span>
+ <strong>
+ Yêu thích:
+ </strong>
+ 1000 lượt
+ </span>
+ </div>
+ </div>
+ <div class="btn-rn flex items-center gap-[5px]">
+ <img src="assets/images/TempImages/ico-tl.png" alt="">
+ <span>
+ ĐỌC TRUYỆN
+ </span>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="wrap-ranking-1 padding-main">
+ <div class="wrap-content">
+ <div class="box-title-ranking mb-3">
+ <div class="title-main">
+ <h2>
+ Bảng xếp hạng
+ </h2>
+ </div>
+ <div class="text-center">
+ <img src="assets/images/TempImages/hoa.png" alt="">
+ </div>
+ </div>
+
+ <div class="cover-ranking-1 cover-ranking-2">
+ <div class="grid grid-cols-2 gap-[150px]">
+ <div class="page">
+ <div class="title">
+ Phú hộ hoa hồng
+ </div>
+ <div class="cover-items">
+ <?php $__currentLoopData = $memberNB->take(5); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $kitem => $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class="item grid grid-cols-5 items-center mb-3 ">
+ <div class="col-span-4">
+ <div class="info">
+ <div class="name flex items-center gap-2">
+ <img src="assets/images/TempImages/rank-<?php echo \html_entity_decode($kitem + 1??'', ENT_QUOTES, 'UTF-8'); ?>.png"
+ alt="">
+ <span class="line-clamp-2">
+ <?php echo \html_entity_decode($item->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-chapter.png" alt="">
+ <span>
+ <strong>
+ Số chương đăng
+ </strong>
+ 8386 chương
+ </span>
+ </div>
+ </div>
+ </div>
+ <div class="col-span-1">
+ <div class="image text-end">
+ <div class="avt">
+ <div class="cover-img rounded-full overflow-hidden inline-block">
+ <img onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/85x85x1/assets/images/noimage.png.webp')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('user', '85x85x1', $item['avatar'], 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($item->fullname??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+
+ <div class="page">
+ <div class="title">
+ Độc giả sôi động
+ </div>
+ <div class="cover-items">
+ <?php $__currentLoopData = $memberNB->take(5); $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $kitem => $item): $loop = $this->incrementLoopIndices();  ?>
+ <div class="item grid grid-cols-5 items-center mb-3 ">
+ <div class="col-span-4">
+ <div class="info">
+ <div class="name flex items-center gap-2">
+ <img src="assets/images/TempImages/rank-<?php echo \html_entity_decode($kitem + 1??'', ENT_QUOTES, 'UTF-8'); ?>.png"
+ alt="">
+ <span class="line-clamp-2">
+ <?php echo \html_entity_decode($item->fullname??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ <div class="items-properties-info author">
+ <img src="assets/images/TempImages/ico-chapter.png" alt="">
+ <span>
+ <strong>
+ Số chương đăng
+ </strong>
+ 8386 chương
+ </span>
+ </div>
+ </div>
+ </div>
+ <div class="col-span-1">
+ <div class="image text-end">
+ <div class="avt">
+ <div class="cover-img rounded-full overflow-hidden inline-block">
+ <img onerror="this.src='<?php echo \html_entity_decode(thumbs('thumbs/85x85x1/assets/images/noimage.png.webp')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('user', '85x85x1', $item['avatar'], 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($item->fullname??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

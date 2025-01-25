@@ -1,0 +1,108 @@
+<?php $this->startPush('styles'); ?>
+ <?php echo cssminify()->set('css/menu/menu_basic.css'); ?>
+
+<?php $this->stopPush(); ?>
+<div class="menu">
+ <ul class="menu-main" id="menu-main">
+ <li>
+ <a class=" <?php if(($com ?? '') == 'san-pham'): ?> active <?php endif; ?>transition !flex items-center justify-center gap-2 a-spec"
+ href="san-pham" title="Sản phẩm">
+ <i class="fa-solid fa-bars text-white"></i>
+ <span>
+ Danh mục sản phẩm
+ </span>
+ </a>
+ <?php if($listProductMenu->isNotEmpty()): ?>
+ <ul class="<?php echo \html_entity_decode(($com ?? '') == 'trang-chu' ? 'ul-spec ul-product' : ''??'', ENT_QUOTES, 'UTF-8'); ?> ">
+ <?php $__currentLoopData = $listProductMenu ?? []; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $vlist): $loop = $this->incrementLoopIndices();  ?>
+ <li>
+ <a class="transition !flex items-center justify-between gap-2"
+ href="<?php echo \html_entity_decode(url('slugweb', ['slug' => $vlist['slugvi']])??'', ENT_QUOTES, 'UTF-8'); ?>"title="<?php echo \html_entity_decode($vlist['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <span>
+ <?php echo \html_entity_decode($vlist['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ <?php /*
+ {!! $vlist->getCategoryCats()->get()->isNotEmpty()
+ ? '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">: '' !!}
+ */ ?>
+ </a>
+ <?php if($vlist->getCategoryCats()->get()->isNotEmpty()): ?>
+ <ul x-show="open" x-transition>
+ <?php $__currentLoopData = $vlist->getCategoryCats()->get() ?? []; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $vcat): $loop = $this->incrementLoopIndices();  ?>
+ <li>
+ <a class="transition"
+ href="<?php echo \html_entity_decode(url('slugweb', ['slug' => $vcat['slugvi']])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($vcat['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"><?php echo \html_entity_decode($vcat['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </a>
+ <ul>
+ <?php $__currentLoopData = $vcat->getCategoryItems()->get() ?? []; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $vitem): $loop = $this->incrementLoopIndices();  ?>
+ <li>
+ <a class="transition"
+ href="<?php echo \html_entity_decode(url('slugweb', ['slug' => $vitem['slugvi']])??'', ENT_QUOTES, 'UTF-8'); ?>"
+ title="<?php echo \html_entity_decode($vitem['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"><?php echo \html_entity_decode($vitem['namevi']??'', ENT_QUOTES, 'UTF-8'); ?></a>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ <?php endif; ?>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ <?php endif; ?>
+ </li>
+ <li><a class=" <?php if(($com ?? '') == 'trang-chu'): ?> active <?php endif; ?>transition" href=""
+ title="Trang chủ">Trang chủ</a></li>
+ <li class="menu-line">
+ </li>
+ <li>
+ <a class=" <?php if(($com ?? '') == 'gioi-thieu'): ?> active <?php endif; ?>transition" href="gioi-thieu"
+ title="Giới thiệu">Giới thiệu</a>
+ </li>
+ <li class="menu-line">
+ </li>
+ <li>
+ <a class=" <?php if(($com ?? '') == 'dich-vu'): ?> active <?php endif; ?>transition" href="dich-vu" title="Dịch vụ">Dịch
+ vụ</a></li>
+ <li class="menu-line">
+ </li>
+ <li><a class=" <?php if(($com ?? '') == 'tin-tuc'): ?> active <?php endif; ?>transition" href="tin-tuc" title="Tin tức">Tin
+ tức</a></li>
+ <li class="menu-line">
+ </li>
+ <li><a class=" <?php if(($com ?? '') == 'lien-he'): ?> active <?php endif; ?>transition" href="lien-he" title="Liên hệ">Liên
+ hệ</a></li>
+ <li class="shrink-0 w-max">
+ <div class="header-login">
+ <div class="user-header flex items-center gap-2">
+ 
+ <?php if($usernamelogin == 'nologin'): ?>
+ 
+ <a class="!flex items-center" href="<?php echo \html_entity_decode(url('member.registration')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <img src="assets/images/TempImages/ico-user.png" alt="">
+ <span>Đăng ký gian hàng</span>
+ </a>
+ <span class="hidden lg:inline-block">/</span>
+ <a href="<?php echo \html_entity_decode(url('member.login')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <span>Đăng nhập </span>
+ </a>
+ <?php else: ?>
+ <a class="!flex items-center" href="<?php echo \html_entity_decode(url('member.man')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <img src="assets/images/TempImages/ico-user.png" alt="">
+ <span>Hi, <?php echo \html_entity_decode($usernamelogin??'', ENT_QUOTES, 'UTF-8'); ?></span>
+ </a>
+ <a href="<?php echo \html_entity_decode(url('member.logout')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <span>Đăng xuất</span>
+ </a>
+ <?php endif; ?>
+ </div>
+ </div>
+ </li>
+ </ul>
+</div>

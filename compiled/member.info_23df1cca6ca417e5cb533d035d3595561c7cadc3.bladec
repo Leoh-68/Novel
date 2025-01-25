@@ -1,0 +1,300 @@
+<?php $this->startPush('styles'); ?>
+ <link rel="stylesheet" href="<?php echo (isset($this->assetDict[('assets/css/member.css')]))?$this->assetDict[('assets/css/member.css')]:$this->baseUrl.'/'.('assets/css/member.css'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <link rel="stylesheet" href="<?php echo (isset($this->assetDict[('assets/admin/css/main.css')]))?$this->assetDict[('assets/admin/css/main.css')]:$this->baseUrl.'/'.('assets/admin/css/main.css'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <link rel="stylesheet" href="<?php echo (isset($this->assetDict[('assets/admin/cropper/cropper.min.css')]))?$this->assetDict[('assets/admin/cropper/cropper.min.css')]:$this->baseUrl.'/'.('assets/admin/cropper/cropper.min.css'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <link rel="stylesheet" href="<?php echo (isset($this->assetDict[('assets/admin/vendor/fonts/tabler-icons.css')]))?$this->assetDict[('assets/admin/vendor/fonts/tabler-icons.css')]:$this->baseUrl.'/'.('assets/admin/vendor/fonts/tabler-icons.css'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>">
+<?php $this->stopPush(); ?>
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <section>
+ <?php 
+ $message = Flash::get('message');
+ $messType = '';
+ $messInfo = '';
+ if ($message) {
+ $messType = $message['status'] ?? 'danger';
+ $messInfo = $message['messages'] ?? [];
+ }
+ ?>
+
+ <div class="max-width py-3">
+ <?php if($messInfo): ?>
+ <?php $__currentLoopData = $messInfo; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="alert alert-<?php echo \html_entity_decode($messType??'', ENT_QUOTES, 'UTF-8'); ?>"><?php echo \html_entity_decode($v??'', ENT_QUOTES, 'UTF-8'); ?></div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ <?php endif; ?>
+ <?php if($thongbao != ''): ?>
+ <div class="alert alert-success my-3"><?php echo \html_entity_decode($thongbao??'', ENT_QUOTES, 'UTF-8'); ?></div>
+ <?php endif; ?>
+ <div class="box_info">
+ <div class="container_load_info load1 mo">
+ <div class="title-user">
+ <span><?php echo \html_entity_decode(__('web.thongtincanhan')??'', ENT_QUOTES, 'UTF-8'); ?></span>
+ </div>
+ <form class="form-user validation-member" novalidate method="post" action="<?php echo \html_entity_decode(url('member.info')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ enctype="multipart/form-data">
+ <div class="row">
+ <div class="col-12 col-lg-6">
+ <div class="cover-img-member">
+
+
+ <label for="file-avatar">Ảnh đại diện</label>
+ <?php 
+ /* Photo detail */
+ $photoDetail = [];
+ $photoAction = 'photo';
+ $photoDetail['upload'] = 'user';
+ $photoDetail['image'] = !empty($rowDetail['avatar'])
+ ? $rowDetail['avatar']
+ : '';
+ $photoDetail['dimension'] =
+ 'Width: 1200 px - Height: 300 px (' . config('type.type_img') . ')';
+ ?>
+ <?php  $this->startComponent('component.image', ['photoDetail' => $photoDetail, 'photoAction' => 'photo', 'key' => 'avatar']); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <div class="cover-img-member">
+ <label for="file-banner">Banner</label>
+ <?php 
+ /* Photo detail */
+ $photoDetail = [];
+ $photoAction = 'photo';
+ $photoDetail['upload'] = 'user';
+ $photoDetail['image'] = !empty($rowDetail['banner'])
+ ? $rowDetail['banner']
+ : '';
+ $photoDetail['dimension'] =
+ 'Width: 600 px - Height: 200 px (' . config('type.type_img') . ')';
+ ?>
+ <?php  $this->startComponent('component.image', ['photoDetail' => $photoDetail, 'photoAction' => 'photo', 'key' => 'banner']); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <label><?php echo \html_entity_decode(__('web.hoten')??'', ENT_QUOTES, 'UTF-8'); ?></label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-user"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="fullname" name="fullname"
+ placeholder="<?php echo \html_entity_decode(__('web.nhaphoten')??'', ENT_QUOTES, 'UTF-8'); ?>" value="<?= $rowDetail['fullname'] ?>"
+ required>
+ <div class="invalid-feedback"><?php echo \html_entity_decode(__('web.vuilongnhaphoten')??'', ENT_QUOTES, 'UTF-8'); ?></div>
+
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <label><?php echo \html_entity_decode(__('web.taikhoan')??'', ENT_QUOTES, 'UTF-8'); ?></label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-user"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="username" name="username"
+ placeholder="<?php echo \html_entity_decode(__('web.nhaptaikhoan')??'', ENT_QUOTES, 'UTF-8'); ?>" value="<?= $rowDetail['username'] ?>"
+ readonly required>
+ <?php $message = call_user_func($this->errorCallBack,'username'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <label><?php echo \html_entity_decode(__('web.matkhaumoi')??'', ENT_QUOTES, 'UTF-8'); ?></label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-lock"></i></div>
+ </div>
+ <input type="password" class="form-control text-sm" id="new-password"
+ name="new-password" placeholder="<?php echo \html_entity_decode(__('web.nhapmatkhaumoi')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <?php $message = call_user_func($this->errorCallBack,'new-password'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <label><?php echo \html_entity_decode(__('web.nhaplaimatkhaumoi')??'', ENT_QUOTES, 'UTF-8'); ?></label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-lock"></i></div>
+ </div>
+ <input type="password" class="form-control text-sm" id="new-password-confirm"
+ name="new-password-confirm" placeholder="<?php echo \html_entity_decode(__('web.nhaplaimatkhaumoi')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <?php $message = call_user_func($this->errorCallBack,'new-password-confirm'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <label>Email</label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+ </div>
+ <input type="email" class="form-control text-sm" id="email" name="email"
+ placeholder="<?php echo \html_entity_decode(__('web.nhapemail')??'', ENT_QUOTES, 'UTF-8'); ?>" value="<?= $rowDetail['email'] ?>"
+ required>
+ <div class="invalid-feedback"><?php echo \html_entity_decode(__('web.vuilongnhapdiachiemail')??'', ENT_QUOTES, 'UTF-8'); ?></div>
+ <?php $message = call_user_func($this->errorCallBack,'email'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ </div>
+ <div class="col-12 col-lg-6">
+ <label><?php echo \html_entity_decode(__('web.dienthoai')??'', ENT_QUOTES, 'UTF-8'); ?></label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-phone-square"></i></div>
+ </div>
+ <input type="number" class="form-control text-sm" id="phone" name="phone"
+ placeholder="<?php echo \html_entity_decode(__('web.nhapdienthoai')??'', ENT_QUOTES, 'UTF-8'); ?>" value="<?= $rowDetail['phone'] ?>"
+ required>
+ <div class="invalid-feedback"><?php echo \html_entity_decode(__('web.vuilongnhapsodienthoai')??'', ENT_QUOTES, 'UTF-8'); ?></div>
+ </div>
+ </div>
+
+
+
+ <div class="col-12">
+ <label><?php echo \html_entity_decode(__('web.diachi')??'', ENT_QUOTES, 'UTF-8'); ?></label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-map"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="address" name="address"
+ placeholder="<?php echo \html_entity_decode(__('web.nhapdiachi')??'', ENT_QUOTES, 'UTF-8'); ?>" value="<?= $rowDetail['address'] ?>"
+ required>
+ <div class="invalid-feedback"><?php echo \html_entity_decode(__('web.vuilongnhapdiachi')??'', ENT_QUOTES, 'UTF-8'); ?></div>
+ </div>
+ </div>
+ </div>
+
+ <?php /* <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-[10px]">
+ <div class="input-cart">
+ <select class="select-city-cart form-select form-control text-sm" required
+ id="city" name="dataAddress[city]">
+ <option value="">Tỉnh thành</option>
+ <?php $__currentLoopData = $city ?? []; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <option value="<?php echo \html_entity_decode($v->id??'', ENT_QUOTES, 'UTF-8'); ?>"
+ <?php if(!empty($addressPicked['city']) && $v->id == $addressPicked['city']['id']): ?> selected <?php endif; ?>><?php echo \html_entity_decode($v->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </option>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </select>
+ <div class="invalid-feedback">Vui lòng chọn tỉnh thành</div>
+ </div>
+ <div class="input-cart">
+ <select
+ class="select-district-cart select-district form-select form-control text-sm"
+ required id="district" name="dataAddress[district]">
+ <?php if(!empty($addressPicked['district'])): ?>
+ <option value="<?php echo \html_entity_decode($addressPicked['district']['id']??'', ENT_QUOTES, 'UTF-8'); ?>" selected>
+ <?php echo \html_entity_decode($addressPicked['district']['name']??'', ENT_QUOTES, 'UTF-8'); ?></option>
+ <?php else: ?>
+ <option value="">Quận huyện</option>
+ <?php endif; ?>
+ </select>
+ <div class="invalid-feedback">Vui lòng chọn quận huyện</div>
+ </div>
+ <div class="input-cart">
+ <select class="select-ward-cart select-ward form-select form-control text-sm"
+ required id="ward" name="dataAddress[ward]">
+ <?php if(!empty($addressPicked['ward'])): ?>
+ <option value="<?php echo \html_entity_decode($addressPicked['ward']['id']??'', ENT_QUOTES, 'UTF-8'); ?>" selected>
+ <?php echo \html_entity_decode($addressPicked['ward']['name']??'', ENT_QUOTES, 'UTF-8'); ?></option>
+ <?php else: ?>
+ <option value="">Phường xã</option>
+ <?php endif; ?>
+ </select>
+ <div class="invalid-feedback">Vui lòng chọn phường xã</div>
+ </div>
+ </div> */ ?>
+
+
+ <div class="button-user">
+ <input type="hidden" name="id" value="<?php echo \html_entity_decode($rowDetail['id']??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <input type="hidden" name="csrf_token" value="<?php echo \html_entity_decode(csrf_token()??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <input type="submit" class="btn btn-primary btn-login" name="info-user"
+ value="<?php echo \html_entity_decode(__('web.capnhat')??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </section>
+<?php $this->stopSection(); ?>
+<?php $this->startPush('styles'); ?>
+ <link rel="stylesheet" href="<?php echo (isset($this->assetDict[('assets/admin/vendor/libs/flatpickr/flatpickr.css')]))?$this->assetDict[('assets/admin/vendor/libs/flatpickr/flatpickr.css')]:$this->baseUrl.'/'.('assets/admin/vendor/libs/flatpickr/flatpickr.css'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>" />
+<?php $this->stopPush(); ?>
+<?php $this->startPush('scripts'); ?>
+ <script>
+ var TYPE_IMG = "jpg|gif|png|jpeg|gif|webp|WEBP";
+ </script>
+ <script src="<?php echo (isset($this->assetDict[('assets/admin/js/cropper.js')]))?$this->assetDict[('assets/admin/js/cropper.js')]:$this->baseUrl.'/'.('assets/admin/js/cropper.js'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>"></script>
+ <script src="<?php echo (isset($this->assetDict[('assets/admin/js/main_crop.js')]))?$this->assetDict[('assets/admin/js/main_crop.js')]:$this->baseUrl.'/'.('assets/admin/js/main_crop.js'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>"></script>
+ <script src="<?php echo (isset($this->assetDict[('assets/admin/vendor/libs/flatpickr/flatpickr.js')]))?$this->assetDict[('assets/admin/vendor/libs/flatpickr/flatpickr.js')]:$this->baseUrl.'/'.('assets/admin/vendor/libs/flatpickr/flatpickr.js'); ?>?<?php echo \html_entity_decode(time()??'', ENT_QUOTES, 'UTF-8'); ?>"></script>
+ <script>
+ const flatpickrDateTime = document.querySelector('#flatpickr-datetime');
+ if (flatpickrDateTime) {
+ flatpickrDateTime.flatpickr({
+ enableTime: false,
+ lang: 'vi',
+ dateFormat: 'd/m/Y',
+ maxDate: new Date()
+ });
+ }
+
+ // document.querySelector('body').addEventListener('change', (e) => {
+ //     if (e.target.closest('.select-city-cart')) {
+ //         this.getDistrict(e.target.closest('.select-city-cart'));
+ //     } else if (e.target.matches('.select-district-cart')) {
+ //         this.getWard(e.target.closest('.select-district-cart'));
+ //     }
+ // });
+
+
+ // getDistrict(target) {
+ //     const selectCity = document.querySelector('.select-city-cart');
+ //     const selectDistrict = document.querySelector('.select-district-cart');
+ //     const id = selectCity.value;
+ //     holdonOpen();
+ //     var form_data = new FormData();
+ //     form_data.append('id', id);
+ //     fetch(this.base_url + 'cart/get-district', {
+ //             method: 'POST',
+ //             body: form_data
+ //         })
+ //         .then((response) => response.json())
+ //         .then((result) => {
+ //             if (result.districts) {
+ //                 this.populateSelect(result.districts, selectDistrict);
+ //             }
+ //             holdonClose();
+ //         });
+ // }
+
+ // getWard(target) {
+ //     const selectCity = document.querySelector('.select-district-cart');
+ //     const selectDistrict = document.querySelector('.select-ward-cart');
+ //     const id = selectCity.value;
+ //     holdonOpen();
+ //     var form_data = new FormData();
+ //     form_data.append('id', id);
+ //     fetch(this.base_url + 'cart/get-ward', {
+ //             method: 'POST',
+ //             body: form_data
+ //         })
+ //         .then((response) => response.json())
+ //         .then((result) => {
+ //             if (result.wards) {
+ //                 this.populateSelect(result.wards, selectDistrict);
+ //             }
+ //             holdonClose();
+ //         });
+ // }
+ </script>
+<?php $this->stopPush(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

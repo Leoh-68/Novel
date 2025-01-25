@@ -1,0 +1,157 @@
+<footer>
+ <div class="wrap-footer">
+ <div class="footer-top padding-main">
+ <div class="wrap-content">
+ <span class="text-center">
+ <?php echo \html_entity_decode($sloganFooter->descvi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </div>
+ </div>
+ <div class="footer-middle padding-main">
+ <div class="wrap-content">
+ <div class="cover-footer-content flex justify-between flex-wrap">
+ <div class="footer-news w-full lg:w-[35%]">
+ <div class="footer-logo">
+
+ <?php  $this->startComponent('component.tool.image', [
+ 'folder' => 'photo',
+ 'type' => 'logo',
+ 'item' => $logoPhoto,
+ 'thumb' => '185x135x1',
+ 'effect' => 'noEffect',
+ 'aspect' => 'noAspect',
+ 'class' => 'noClass',
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+
+ <div class="footer-desc">
+ <p class="line-clamp-4">
+ <?php echo \html_entity_decode($footer->descvi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </p>
+ </div>
+ </div>
+ <div class="footer-news w-full lg:w-[20%]">
+ <div class="footer-title">
+ <span>
+ Hỗ trợ
+ </span>
+ </div>
+ <div class="footer-ul">
+ <ul>
+ <?php $__currentLoopData = $policyHome; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <li>
+ <a href="<?php echo \html_entity_decode($item->slugvi??'', ENT_QUOTES, 'UTF-8'); ?>" class=" text-decoration-none ">
+ <?php echo \html_entity_decode($item->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </a>
+ </li>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </ul>
+ </div>
+ </div>
+
+ <div class="footer-news w-full lg:w-[25%]">
+ <div class="footer-title">
+ <span>
+ Đăng ký nhận thông báo
+ </span>
+ </div>
+ <div class="footer-slogan-form">
+ <span>
+ Vui lòng để lại Email của bạn, chúng tôi sẽ gửi thông báo mới nhất
+ </span>
+ </div>
+ <form id="form-newsletter" class="validation-newsletter check-form flex items-cenrer"
+ method="post" action="dang-ky-nhan-tin-post" enctype="multipart/form-data">
+ <div class="form-group form-col-cus2">
+ <input type="text" name="dataNewsletter[email]" class="form-control"
+ id="email-newsletter" placeholder="Email" required>
+ </div>
+ <div class="dk-button">
+ <input type="hidden" name="dataNewsletter[type]" value="dang-ky-nhan-tin" />
+ <input type="hidden" name="csrf_tokeqn" value="<?php echo \html_entity_decode(csrf_token()??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <input type="hidden" name="loaidata" value="dataNewsletter">
+ <input type="submit" data-type="newsletter" class="check-btn " name="submit-newsletter"
+ value="Gửi" />
+ <input type="hidden" name="recaptcha_response_newsletter"
+ id="recaptchaResponseNewsletter">
+ </div>
+
+ </form>
+ </div>
+
+ </div>
+ </div>
+ </div>
+
+ <div class="footer-connect text-center padding-main">
+
+ <div class="title">
+ <span>
+ KẾT NỐI HỒNG CHI CÁC
+ </span>
+ </div>
+
+ <div class="footer-social">
+ <div class="social flex items-center justify-center gap-1">
+ <?php $__currentLoopData = $social; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <a href="<?php echo \html_entity_decode($item['link']??'', ENT_QUOTES, 'UTF-8'); ?>" target="_blank">
+ <img onerror="this.src='<?php echo \html_entity_decode(assets_photo('photo', '45x45x1', 'noimage.png', 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>';"
+ src="<?php echo \html_entity_decode(assets_photo('photo', '45x45x1', $item->photo, 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="<?php echo \html_entity_decode($item->namevi??'', ENT_QUOTES, 'UTF-8'); ?>">
+ </a>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>
+ </div>
+ </div>
+ <?php /* 
+ <?php if($tags->isNotEmpty()): ?>
+ <div class="footer-tags">   
+ <div class="wrap-content py-[15px]">
+ <p class="title-tags">Từ khóa sản phẩm</p>
+ <div class="flex-tags">
+ <?php $__currentLoopData = $tags; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $v): $loop = $this->incrementLoopIndices();  ?>
+ <a href="<?php echo \html_entity_decode($v['slugvi']??'', ENT_QUOTES, 'UTF-8'); ?>" title="<?php echo \html_entity_decode($v['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>"><?php echo \html_entity_decode($v['namevi']??'', ENT_QUOTES, 'UTF-8'); ?></a>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ </div>  
+ </div>
+ <?php endif; ?>
+ */ ?>
+ <div class="footer-powered bg-[#2C9C35] text-center">
+ <div class="wrap-content text-white py-[15px] flex items-center justify-center flex-wrap lg:justify-between">
+ <p class="copyright   text-[14px] mb-0"><?php echo \html_entity_decode($setting['namevi']??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ All rights reserved. Designed by nina.vn
+ </p>
+ <span class="stat flex items-center justify-center gap-2">
+ <span>
+ Đang online : <?php echo \html_entity_decode(Statistic::getOnline()??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ |
+ <span>
+ Hôm nay : <?php echo \html_entity_decode(Statistic::getTodayRecord()??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ |
+ <span>
+ Tuần này : <?php echo \html_entity_decode(Statistic::getWeekRecord()??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ |
+ <span>
+ Tháng này : <?php echo \html_entity_decode(Statistic::getMonthRecord()??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </span>
+ </span>
+ </div>
+ </div>
+</footer>

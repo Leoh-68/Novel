@@ -1,0 +1,9 @@
+.item-left .info .name {
+  font-size: 16px;
+  color: var(--color-main);
+  font-weight: 600;
+}
+.item-left .info .desc {
+  font-size: 14px;
+  color: black;
+}

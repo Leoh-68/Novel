@@ -1,0 +1,29 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <section>
+ <div class="max-width py-3">
+ <div class="title-detail title-main !text-center">
+ <h1><?php echo \html_entity_decode($titleMain??'', ENT_QUOTES, 'UTF-8'); ?></h1>
+ </div>
+ <?php if($itemTags->isNotEmpty()): ?>
+ <div class="flex items-center flex-wrap gap-2">
+ <?php $__currentLoopData = $itemTags; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $k => $v): $loop = $this->incrementLoopIndices();  ?>
+ <div class="tags-detail" style="--tag-color: <?php echo \html_entity_decode($v->color??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <a href="<?php echo \html_entity_decode($v->slugvi??'', ENT_QUOTES, 'UTF-8'); ?>" class=" text-decoration-none ">
+ <?php echo \html_entity_decode($v->namevi??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </a>
+ </div>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </div>
+ <?php else: ?>
+ <div class="alert alert-warning w-100" role="alert">
+ <strong>Không tìm thấy kết quả</strong>
+ </div>
+ <?php endif; ?>
+ </div>
+ </section>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>

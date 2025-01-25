@@ -1,0 +1,12 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('contentmaster'); ?>
+ <?php if(($com ?? '') == 'trang-chu'): ?>
+ <?php echo $this->runChild('layout.seo'); ?>
+ <?php endif; ?>
+ <?php echo $this->runChild('layout.header'); ?>
+ <?php echo $this->includeWhen(\NINA\Core\Support\Str::isNotEmpty(BreadCrumbs::get()), 'layout.breadcrumbs'); ?>
+ <?php echo $this->yieldContent('content'); ?>
+ <?php echo $this->runChild('layout.strucdata'); ?>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('master'); } ?>

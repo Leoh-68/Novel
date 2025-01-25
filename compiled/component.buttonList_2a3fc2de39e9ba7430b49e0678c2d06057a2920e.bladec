@@ -1,0 +1,15 @@
+<?php 
+ $kind = !empty($kind) ? '.' . $kind : '';
+ $params['page'] = 1;
+ ?>
+
+<?php echo $slot; ?>
+
+
+<a class="text-primary mr-2" href="<?php echo \html_entity_decode(url('memberHome.edit', ['com' => $com, 'act' => 'edit', 'type' => $type], $params ?? [])??'', ENT_QUOTES, 'UTF-8'); ?>""><i
+ class="ti ti-edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"
+ title="Chỉnh sửa"></i></a>
+
+<a class="text-danger cursor-pointer" id="delete-item"
+ data-url="<?php echo \html_entity_decode(url('memberHome.delete', ['com' => $com, 'act' => 'edit', 'type' => $type], $params ?? [])??'', ENT_QUOTES, 'UTF-8'); ?>""><i class="ti ti-trash"
+ data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Xóa"></i></a>

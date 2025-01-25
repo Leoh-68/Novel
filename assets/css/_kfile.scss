@@ -1,0 +1,155 @@
+.padding-main {
+	padding: 50px 0;
+}
+
+.padding-top-main {
+	padding: 50px 0 0 0;
+}
+
+.padding-bottom-main {
+	padding: 0px 0 50px 0;
+}
+
+.noIndex {
+	position: unset;
+}
+.fixed {
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	background-color: var(--color-main);
+	width: 100%;
+	z-index: 999;
+
+	.top {
+		display: none;
+	}
+	.logo-header {
+		zoom: 0.7;
+	}
+	.menu ul li a {
+		color: white;
+	}
+	.menu ul li ul li a {
+		color: black;
+	}
+}
+
+.ringring {
+	animation: coccoc-alo-circle-img-anim 1.2s infinite ease-in-out;
+	transition: all 0.5s;
+}
+
+.hover-img {
+	position: relative;
+	overflow: hidden;
+	display: block;
+	&:before {
+		content: "";
+		background: rgba(255, 255, 255, 0.5);
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		transform: rotate(90deg);
+		-khtml-opacity: 1;
+		-o-opacity: 1;
+		-ms-opacity: 1;
+		-webkit-opacity: 1;
+		-moz-opacity: 1;
+		opacity: 1;
+		width: 0;
+		height: 0;
+		z-index: 3;
+	}
+	&:after {
+		content: "";
+		background: rgba(255, 255, 255, 0.5);
+		top: 0;
+		right: 0;
+		position: absolute;
+		transform: rotate(90deg);
+		-khtml-opacity: 1;
+		-o-opacity: 1;
+		-ms-opacity: 1;
+		-webkit-opacity: 1;
+		-moz-opacity: 1;
+		opacity: 1;
+		width: 0;
+		height: 0;
+		z-index: 2;
+	}
+}
+.hover-img:hover:before,
+.hover-img:hover:after {
+	transform: rotateY(180deg);
+	transition-duration: 1.3s;
+	-khtml-opacity: 0;
+	-o-opacity: 0;
+	-ms-opacity: 0;
+	-webkit-opacity: 0;
+	-moz-opacity: 0;
+	opacity: 0;
+	height: 100%;
+	width: 100%;
+}
+.row-gap-20 {
+	margin: 0 calc(-20px / 2) !important;
+}
+
+.col-gap-20 {
+	padding: 0 calc(20px / 2) !important;
+}
+
+.hover-box {
+	&:hover {
+		transition: 0.4s;
+		& > .hover-info {
+			.hover-name {
+				transition: 0.4s;
+				color: var(--color-hover);
+
+				span {
+					transition: 0.4s;
+					color: var(--color-hover);
+				}
+
+				p {
+					transition: 0.4s;
+					color: var(--color-hover);
+				}
+
+				a {
+					transition: 0.4s;
+					color: var(--color-hover);
+				}
+
+				h1 {
+					transition: 0.4s;
+					color: var(--color-hover);
+				}
+
+				h3 {
+					transition: 0.4s;
+					color: var(--color-hover);
+				}
+			}
+		}
+	}
+}
+
+@each $split in $text-splits {
+	.text-split-#{$split} {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: normal;
+		-webkit-box-orient: vertical;
+		display: -webkit-box;
+		-webkit-line-clamp: $split;
+	}
+}
+
+@each $gap in $gapList {
+	.gap-#{$gap} {
+		gap: #{$gap}px;
+	}
+}

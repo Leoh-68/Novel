@@ -1,0 +1,44 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+
+
+@layer base {
+
+    img {
+
+        display: inline-block;
+
+        max-width: 100% !important;
+
+        height: auto !important;
+
+    }
+
+    .wrap-content {
+
+        @apply max-w-[1200px] w-[calc(100%_-_20px)] m-auto;
+
+    }
+
+
+
+    .wrap-content-2 {
+
+        @apply max-w-[1000px] w-[calc(100%_-_20px)] m-auto;
+
+    }
+
+
+    .wrap-content-chapter {
+
+        @apply max-w-[1000px] w-[calc(100%_-_20px)] m-auto;
+
+    }
+
+
+}
+

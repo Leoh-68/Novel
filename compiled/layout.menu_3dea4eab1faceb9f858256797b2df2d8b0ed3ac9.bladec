@@ -1,0 +1,6 @@
+<div class="w-menu ">
+ <div class="wrap-content">
+ <?php  $this->startComponent('component.menu.menu_basic'); ?>
+ <?php echo $this->renderComponent(); ?>
+ </div>
+</div>

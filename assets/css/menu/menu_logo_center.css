@@ -1,0 +1,144 @@
+/* Menu */
+.w-menu {
+  width: 100%;
+}
+
+.menu {
+  padding: 5px 0px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+.menu ul {
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+  list-style: none;
+}
+.menu ul.menu-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu ul li {
+  position: relative;
+  z-index: 1;
+}
+.menu ul li.menu-line {
+  width: 1px;
+  height: 20px;
+  border-radius: 30px;
+  background: #f2f2f2;
+}
+.menu ul li i {
+  color: black;
+  font-weight: 400;
+  font-size: 22px;
+}
+.menu ul li a {
+  padding: 12px 20px;
+  display: inline-block;
+  width: 100%;
+  transition: all 0.4s linear;
+  color: var(--MU-2, #563919);
+  font-family: Quicksand;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.menu ul li a.has-child {
+  padding-right: 16px;
+  margin-right: 8px;
+}
+.menu ul li a.has-child:after {
+  content: "";
+  position: absolute;
+  bottom: calc(50% - 2px);
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #fafafa;
+  border-top: 0px;
+  border-left: 0px;
+  transform: rotate(45deg);
+}
+.menu ul li ul {
+  transition: all 0.2s linear;
+  position: absolute;
+  min-width: 250px;
+  background-color: #fafafa;
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.15);
+  transform: perspective(600px) rotateX(-90deg);
+  transform-origin: 0 0 0;
+  opacity: 0;
+  visibility: hidden;
+}
+.menu ul li ul li {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.menu ul li ul li a {
+  font-size: 14px;
+  color: #313131;
+  border-bottom: 1px solid #ececec;
+  padding: 10px 0px 9px 0px;
+  text-transform: capitalize;
+}
+.menu ul li ul li a.has-child {
+  margin-right: 0px;
+}
+.menu ul li ul li a.has-child:after {
+  border-color: #313131;
+  transform: rotate(-45deg);
+}
+.menu ul li ul li a.active {
+  color: #ff9c00;
+}
+.menu ul li ul li a.active.has-child:after {
+  border-color: #ff9c00;
+}
+.menu ul li ul li:last-child > a {
+  border-bottom: 0px;
+}
+.menu ul li ul li:hover > a {
+  color: var(--color-hover);
+  background: unset;
+}
+.menu ul li ul li:hover > a.has-child:after {
+  border-color: var(--color-hover);
+}
+.menu ul li ul li ul {
+  top: 0;
+  left: 100%;
+  margin-top: 0px;
+}
+.menu ul li:hover a:after {
+  border-color: var(--color-hover);
+}
+.menu ul li:hover > ul {
+  transition: all 0.2s linear;
+  transform: perspective(600px) rotateX(0);
+  transform-origin: 0 0 0;
+  -webkit-transform-origin: 0 0 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu ul li a:hover,
+.menu ul li a.active {
+  position: relative;
+  color: var(--color-hover);
+}
+.menu ul li a:hover::before,
+.menu ul li a.active::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80%;
+  margin-left: 10%;
+  height: 2px;
+  background-color: var(--color-hover);
+}

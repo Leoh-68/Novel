@@ -1,0 +1,217 @@
+.menu ul li a.has-child:after,
+.menu ul li ul, .menu ul li:hover > ul {
+  transition: 0.3s all;
+}
+
+.wrap-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-head-left {
+  position: relative;
+}
+
+.title-menu {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 40px;
+  display: block;
+}
+
+.menu-product-list {
+  position: absolute;
+  z-index: 99;
+  top: 100%;
+  width: 250px;
+  background: #fff;
+  border-radius: 2px;
+}
+.menu-product-list ul {
+  padding: 0px;
+  margin-bottom: 0px;
+}
+.menu-product-list ul ul {
+  position: absolute;
+  width: 750px;
+  background: #fff;
+  left: 100%;
+  top: 0px;
+  border: 1px solid #999;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: 100%;
+  overflow-x: hidden;
+}
+.menu-product-list ul ul ul {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  border: none;
+  display: block;
+  height: auto;
+}
+.menu-product-list ul li a {
+  position: relative;
+  display: block;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px 10px 5px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.menu-product-list ul li a .icon-down {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.menu-product-list ul ul li a span {
+  position: absolute;
+  right: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #00a3ff;
+}
+.menu-product-list ul li a:hover {
+  color: #f00;
+}
+.menu-product-list ul ul li a {
+  border-bottom: none;
+  font-weight: bold;
+}
+.menu-product-list ul ul ul li a {
+  font-weight: normal;
+}
+
+.menu {
+  position: relative;
+  z-index: 99;
+  width: calc(100% - 190px);
+}
+.menu .wrap-content {
+  position: relative;
+}
+
+.fix_menu {
+  position: fixed !important;
+  box-shadow: 0 0 1px #999;
+  background: #fff;
+}
+
+.menu ul {
+  width: 100%;
+  padding: 0px;
+  margin: 0;
+  list-style: none;
+}
+.menu ul li {
+  position: relative;
+  z-index: 99;
+}
+.menu ul.ulmn > li {
+  flex: auto;
+}
+.menu ul li.line {
+  width: 1px;
+  height: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  flex: none;
+}
+.menu ul li a {
+  font-size: 14px;
+  color: #fff;
+  margin: 0px;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  text-decoration: none !important;
+  display: block;
+  line-height: 45px;
+}
+.menu ul li a img {
+  vertical-align: middle;
+}
+.menu ul li a.active {
+  color: #fed402;
+}
+.menu ul li:hover > a {
+  color: #fed402;
+}
+.menu ul li ul {
+  position: absolute;
+  min-width: 250px;
+  left: 0;
+  background: #fff;
+  box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.3);
+  transform: perspective(600px) rotateX(-90deg);
+  transform-origin: 0 0 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+}
+.menu ul li:hover > ul {
+  transform: perspective(600px) rotateX(0);
+  -webkit-transform-origin: 0 0 0;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.7s;
+}
+.menu ul li ul li {
+  text-align: left;
+  border-bottom: 1px solid rgba(173, 173, 173, 0.32);
+}
+.menu ul li ul li:last-child {
+  border-bottom: 0px;
+}
+.menu ul li ul li a {
+  font-size: 14px;
+  padding: 10px;
+  display: block;
+  text-decoration: none !important;
+  line-height: 20px;
+  text-align: left;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.menu ul li ul li ul {
+  top: 0px;
+  left: 100%;
+}
+.menu ul li ul li a:before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #fed402;
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  visibility: hidden;
+  opacity: 0;
+}
+.menu ul li ul li a:hover {
+  padding-left: 40px;
+}
+.menu ul li ul li a:hover:before {
+  left: 0;
+  visibility: visible;
+  opacity: 1;
+  width: 30px;
+}
+.menu ul li ul li > a.active:before {
+  left: 0;
+  visibility: visible;
+  opacity: 1;
+  width: 30px;
+}

@@ -1,0 +1,144 @@
+<?php $this->startPush('styles'); ?>
+ <link rel="stylesheet" href="<?php echo (isset($this->assetDict[('assets/css/member.css?v='.time())]))?$this->assetDict[('assets/css/member.css?v='.time())]:$this->baseUrl.'/'.('assets/css/member.css?v='.time()); ?>">
+<?php $this->stopPush(); ?>
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <section>
+ <div class="max-width py-3" x-data="{ show: true, showrepass: true }">
+ <div class="wrap-user">
+ <div class="title-user title-user-center">
+ <span class="text-center title-form d-block">
+ <h1>
+ Đăng ký gian hàng
+ </h1>
+ </span>
+ </div>
+ <form class="form-user validation-member" method="post" action="<?php echo \html_entity_decode(url('member.registration')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ enctype="multipart/form-data">
+ <label>Họ và tên</label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-user"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="fullname" name="fullname"
+ placeholder="Nhập họ và tên" value="" required>
+ <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
+ <?php $message = call_user_func($this->errorCallBack,'fullname'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ <label>Email</label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+ </div>
+ <input type="email" class="form-control text-sm" id="email" name="email"
+ placeholder="Nhập email" value="" required>
+ <div class="invalid-feedback">Vui lòng nhập email</div>
+ <?php $message = call_user_func($this->errorCallBack,'email'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ <label>Tên tài khoản</label>
+ <div class="input-group input-user ">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-user"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="username" name="username"
+ placeholder="Nhập tên tài khoản" value="" required>
+ <div class="invalid-feedback">Vui lòng nhập tên tài khoản</div>
+ <?php $message = call_user_func($this->errorCallBack,'username'); if ($message): ?>
+ <div class=" w-100 text-danger text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ <label>Mật khẩu (*)</label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-lock"></i></div>
+ </div>
+ <input :type="show ? 'password' : 'text'" autocomplete="off" class="form-control text-sm"
+ id="password" name="password" placeholder="Nhập mật khẩu" required>
+ <span class="show-pass cursor-pointer"><i class="fa-light fa-eye-slash" @click="show = !show"
+ :class="{ 'fa-light fa-eye': !show, 'fa-light fa-eye-slash': show }"></i></span>
+ <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
+ <?php $message = call_user_func($this->errorCallBack,'password'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+ <label>Nhập lại mật khẩu (*)</label>
+ <div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-lock"></i></div>
+ </div>
+ <input :type="showrepass ? 'password' : 'text'" autocomplete="off" class="form-control text-sm"
+ id="re-password" name="re-password" placeholder="Nhập lại mật khẩu" required>
+ <span class="show-pass cursor-pointer"><i class="fa-light fa-eye-slash"
+ @click="showrepass = !showrepass"
+ :class="{ 'fa-light fa-eye': !showrepass, 'fa-light fa-eye-slash': showrepass }"></i></span>
+ <div class="invalid-feedback">Vui lòng nhập lại mật khẩu</div>
+ <?php $message = call_user_func($this->errorCallBack,'re-password'); if ($message): ?>
+ <div class="text-danger w-100 text-sm mt-1"><?php echo $message; ?></div>
+ <?php endif; ?>
+ </div>
+
+ <div class="button-user">
+ <input type="hidden" name="csrf_token" value="<?php echo \html_entity_decode(csrf_token()??'', ENT_QUOTES, 'UTF-8'); ?>">
+ <input type="submit" class="btn btn-primary btn-block btn-login" name="registration-user"
+ value="Đăng ký">
+ </div>
+ </form>
+ </div>
+ </div>
+ </section>
+<?php $this->stopSection(); ?>
+
+
+
+<?php /*
+<label>{{__('web.gioitinh')}}</label>
+<div class="input-group input-user">
+ <div class="radio-user custom-control custom-radio">
+ <input type="radio" id="nam" name="gender" class="custom-control-input" value="1" <?= (1 == 1) ? 'checked' : '' ?>
+?>
+?>
+?>
+?> >
+<label class="custom-control-label" for="nam">{{ __('web.nam') }}</label>
+</div>
+<div class="radio-user custom-control custom-radio">
+ <input type="radio" id="nu" name="gender" class="custom-control-input" value="2"
+ <?= 1 == 2 ? 'checked' : '' ?>>
+ <label class="custom-control-label" for="nu">{{ __('web.nu') }}</label>
+</div>
+</div>
+<label>{{ __('web.ngaysinh') }}</label>
+<div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-lock"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="birthday" name="birthday"
+ placeholder="{{ __('web.nhapngaysinh') }}" value="" autocomplete="off">
+ <div class="invalid-feedback">{{ __('web.vuilongnhapsodienthoai') }}</div>
+</div>
+
+<label>{{ __('web.dienthoai') }}</label>
+<div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-phone-square"></i></div>
+ </div>
+ <input type="number" class="form-control text-sm" id="phone" name="phone"
+ placeholder="{{ __('web.nhapdienthoai') }}" value="">
+ <div class="invalid-feedback">{{ __('web.vuilongnhapsodienthoai') }}</div>
+</div>
+<label>{{ __('web.diachi') }}</label>
+<div class="input-group input-user">
+ <div class="input-group-prepend">
+ <div class="input-group-text"><i class="fa fa-map"></i></div>
+ </div>
+ <input type="text" class="form-control text-sm" id="address" name="address"
+ placeholder="{{ __('web.nhapdiachi') }}" value="">
+ <div class="invalid-feedback">{{ __('web.vuilongnhapdiachi') }}</div>
+</div>
+*/ ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout'); } ?>
