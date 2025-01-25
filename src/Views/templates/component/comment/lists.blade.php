@@ -4,10 +4,10 @@
     $album = Comment::photo($params['id'], $params['type']);
 @endphp
 
-<div class="comment-item">
+<div class="comment-item ">
     <div class="comment-item-poster">
         @if (!empty($params['id_user']))
-            <div class="comment-item-avatar mb-1 text-center">
+            <div class="comment-item-avatar text-center">
                 <div class="inline-block rounded-full overflow-hidden">
                     <img src="{{ assets_photo('user', '65x65x1', $params->getUser()->first()->avatar, 'thumbs') }}"
                         alt="">

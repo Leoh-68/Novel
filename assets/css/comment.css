@@ -504,7 +504,7 @@
 	margin-bottom: 0.5rem;
 }
 
-.comment-item-name {
+.comment-item-name,.comment-replies-name {
 	color: #c9184a;
 	text-align: justify;
 	font-family: SVN-Poppins;
@@ -678,12 +678,6 @@
 
 .comment-replies-info {
 	width: calc(100% - 55px);
-}
-
-.comment-replies-name {
-	font-weight: 500;
-
-	margin-bottom: 0.125rem;
 }
 
 .comment-replies [class*="btn-load-more-"] {

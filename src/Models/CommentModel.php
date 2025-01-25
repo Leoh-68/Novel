@@ -24,7 +24,7 @@ class CommentModel extends Model
     {
         return $this->hasMany(CommentModel::class, 'id_parent', 'id');
     }
-
+ 
     public function getReplies(): \NINA\Database\Eloquent\Relations\hasMany
     {
         return $this->hasMany(CommentModel::class, 'id_parent', 'id')->where("id_parent", '<>', 0)->whereRaw("FIND_IN_SET(?,status)", ['hienthi']);
