@@ -1,4 +1,5 @@
 <?php
+
 /******************************************************************************
  * NINA VIỆT NAM
  * Email: nina@nina.vn
@@ -27,7 +28,7 @@ class AllController extends Controller
 {
     function composer($view): void
     {
-        
+
         if ($_SESSION['detect_allcontroller']) {
             return;
         }
@@ -45,26 +46,25 @@ class AllController extends Controller
                 ->limit(1)
                 ->get();
         }
-        
         $userLoginCheck = Auth::guard('member')->check();
         $newsUserUpdated = $userLogin->fullname ?? 'nologin';
         $usernamelogin = $newsUserUpdated;
         $configType = json_decode(json_encode(config('type')));
 
         $productMostView = ProductModel::select('namevi', 'photo', 'descvi', 'slugvi', 'regular_price', 'id_member', 'sale_price', 'discount', 'id', 'view')
-        ->with('getAuthor')
-        ->where('type', 'truyen')
-        ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
-        ->orderBy('view', 'desc')
-        ->orderBy('numb', 'asc')
-        ->orderBy('id', 'desc')
-        ->get();
+            ->with('getAuthor')
+            ->where('type', 'truyen')
+            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
+            ->orderBy('view', 'desc')
+            ->orderBy('numb', 'asc')
+            ->orderBy('id', 'desc')
+            ->get();
 
 
         $extHotline = '';
         $photos = PhotoModel::select('photo', 'namevi', 'link', 'type')
-            ->whereIn('type', [ 'logo', 'banner-1', 'favicon', 'social',  'fanpage', 'tool', 'phuong-thuc-thanh-toan' ])
-            ->whereRaw("FIND_IN_SET(?, status)", [ 'hienthi' ])
+            ->whereIn('type', ['logo', 'banner-1', 'favicon', 'social',  'fanpage', 'tool', 'phuong-thuc-thanh-toan'])
+            ->whereRaw("FIND_IN_SET(?, status)", ['hienthi'])
             ->get();
 
         $payment = $photos->where('type', 'phuong-thuc-thanh-toan')
@@ -81,8 +81,8 @@ class AllController extends Controller
         // Static
 
         $statics = StaticModel::select('namevi', 'contentvi', 'descvi', 'slugvi', 'status', 'type')
-            ->whereIn('type', [ 'slogan', 'footer', 'slogan-footer' ])
-            ->whereRaw("FIND_IN_SET(?, status)", [ 'hienthi' ])
+            ->whereIn('type', ['slogan', 'footer', 'slogan-footer'])
+            ->whereRaw("FIND_IN_SET(?, status)", ['hienthi'])
             ->get();
 
         $slogan = $statics->where('type', 'slogan')->first();
@@ -93,8 +93,8 @@ class AllController extends Controller
 
         // News
         $newsCtrl = NewsModel::select('namevi', 'descvi', 'photo', 'slugvi', 'id', 'contentvi', 'status', 'type')
-            ->whereIn('type', [ 'chinh-sach', 'tin-tuc' ])
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->whereIn('type', ['chinh-sach', 'tin-tuc'])
+            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
             ->orderBy('numb', 'asc')
             ->orderBy('id', 'desc')
             ->get();
@@ -106,21 +106,21 @@ class AllController extends Controller
             ->values();
 
         $listProductMenu = ProductListModel::select('namevi', 'photo', 'slugvi', 'id')
-            ->where('type', 'san-pham', )
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->where('type', 'san-pham',)
+            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
             ->orderBy('numb', 'asc')
             ->get();
 
         $catProductMenu = ProductCatModel::select('namevi', 'photo', 'slugvi', 'id')
-            ->where('type', 'san-pham', )
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'menu' ])
+            ->where('type', 'san-pham',)
+            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
+            ->whereRaw("FIND_IN_SET(?,status)", ['menu'])
             ->orderBy('numb', 'asc')
             ->get();
 
         $ext = ExtensionsModel::select('*')
-            ->whereIn('type', [ 'hotline', 'social', 'popup' ])
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->whereIn('type', ['hotline', 'social', 'popup'])
+            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
             ->get();
 
         $extHotline = $ext->where('type', 'hotline')->first();

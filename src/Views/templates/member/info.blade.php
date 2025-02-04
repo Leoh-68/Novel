@@ -128,12 +128,8 @@
                                     <div class="invalid-feedback">{{ __('web.vuilongnhapdiachi') }}</div>
                                 </div>
                             </div>
-                            {{-- loadImage('assets/images/user.jpg','file-zone-avatar') --}}
-                            
                             <div class="col-12 col-lg-6">
                                 <div class="cover-img-member">
-
-
                                     <label for="file-avatar">Ảnh đại diện</label>
                                     @php
                                         /* Photo detail */
@@ -151,6 +147,7 @@
                                             <div class="setting-crop">
                                                 <input type="" name="additionalData" id="additionalData"
                                                     value="someAdditionalData">
+
                                                 <ul class="mb-3 hide-crop ">
                                                     <li>
                                                         <button id="cropButton-avatar" type="button"
@@ -264,6 +261,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="my-3 w-100 text-center">
+                                            <a class="btn btn-danger popup-avatar">
+                                                Chọn ảnh có sẵn
+                                            </a>
+                                        </div>
                                         <div class="file-photo">
                                             <label class="photoUpload-file" id="photo-zone-avatar"
                                                 for="file-zone-avatar">
@@ -312,6 +314,37 @@
             </div>
         </div>
     </section>
+    <section>
+        <div class="modal fade" id="AvatarModel" tabindex="-1" aria-labelledby="AvatarModelLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title h4" id="AvatarModelLabel">Chọn ảnh từ kho ảnh đã có</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            @isset($aavatar)
+                                @if (count($aavatar))
+                                    @foreach ($aavatar as $v)
+                                        <a class="col-lg-2 mb-3" data-bs-dismiss="modal" aria-label="Close" onclick="loadImage('{{assets_photo('photo', '200x200x1', $v->photo, 'thumbs')}}','file-zone-avatar')">
+                                            <img class='w-100 lazy'
+                                                onerror="this.src='{{ thumbs('thumbs/200x200x1/assets/images/noimage.png') }}';"
+                                                src="{{ thumbs('thumbs/200x200x1/assets/images/noimage.png') }}"
+                                                data-src="{{ assets_photo('photo', '200x200x1', $v->photo, 'thumbs') }}"
+                                                alt="{{ $v->namevi }}" title="{{ $v->namevi }}" width="200"
+                                                height="200">
+                                        </a>
+                                    @endforeach
+                                @endif
+                            @endisset
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 @endsection
 @push('styles')
     <link rel="stylesheet" href="@asset('assets/admin/vendor/libs/flatpickr/flatpickr.css')?{{ time() }}" />

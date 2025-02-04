@@ -1,4 +1,5 @@
 <?php
+
 /******************************************************************************
  * NINA VIỆT NAM
  * Email: nina@nina.vn
@@ -6,7 +7,9 @@
  * Version: 1.0
  * Đây là tài sản của CÔNG TY TNHH TM DV NINA. Vui lòng không sử dụng khi chưa được phép.
  */
+
 namespace NINA\Controllers\Web;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use NINA\Core\Support\Facades\Auth;
@@ -30,6 +33,7 @@ use NINA\Models\ProductPropertiesModel;
 use NINA\Models\PropertiesListModel;
 use NINA\Traits\TraitSave;
 use Carbon\Carbon;
+use NINA\Models\PhotoModel;
 
 class MemberController
 {
@@ -56,7 +60,7 @@ class MemberController
         //     ->orderBy('id', 'desc')
         //     ->first();
         // dd($slugCheck);
-        return view('member.man', [ 'rowDetail' => $rowDetail ]);
+        return view('member.man', ['rowDetail' => $rowDetail]);
     }
 
     // Xem thông tin member và cập nhật
@@ -155,7 +159,7 @@ class MemberController
                 $data['numb'] = 1;
                 MemberModel::where('id', $user->id)->update($data);
                 if (!empty($password))
-                    MemberModel::where('id', $user->id)->update([ 'password' => $password ]);
+                    MemberModel::where('id', $user->id)->update(['password' => $password]);
 
                 $rowDetail = MemberModel::select('*')
                     ->where('id', '=', $user->id)
@@ -171,7 +175,8 @@ class MemberController
             $rowDetail = MemberModel::select('*')
                 ->where('id', '=', $id)
                 ->first();
-            return view('member.info', [ 'rowDetail' => $rowDetail, 'thongbao' => '', 'com' => 'info' ]);
+            $aavatar = PhotoModel::select('photo')->where([['type','anh-co-san']])->get();
+            return view('member.info', ['rowDetail' => $rowDetail, 'aavatar' => $aavatar, 'thongbao' => '', 'com' => 'info']);
         }
     }
 
@@ -196,13 +201,13 @@ class MemberController
                 if ($error == '') {
                     if ($username == '' && $password == '') {
                         $error = "Bạn chưa nhập tên đăng nhập và mật khẩu";
-                        return view("member.{$this->loginpage}", [ 'mess' => $error ]);
+                        return view("member.{$this->loginpage}", ['mess' => $error]);
                     } else if ($username == '') {
                         $error = "Bạn chưa nhập tên đăng nhập";
-                        return view("member.{$this->loginpage}", [ 'mess' => $error ]);
+                        return view("member.{$this->loginpage}", ['mess' => $error]);
                     } else if ($password == '') {
                         $error = "Bạn chưa nhập mật khẩu";
-                        return view("member.{$this->loginpage}", [ 'mess' => $error ]);
+                        return view("member.{$this->loginpage}", ['mess' => $error]);
                     } else {
                         if (Auth::guard('member')->attempt($credentials, $request->has('remember'))) {
                             $admin = Auth::guard('member')->user();
@@ -272,7 +277,7 @@ class MemberController
                 }
             }
         } else {
-            return view("member.{$this->loginpage}", [ 'items' => '', 'mess' => '', 'com' => 'login' ]);
+            return view("member.{$this->loginpage}", ['items' => '', 'mess' => '', 'com' => 'login']);
         }
     }
     /* Đăng xuất */
@@ -292,7 +297,7 @@ class MemberController
                 $this->addMember($request);
             }
         } else {
-            return view('member.registration', [ 'mess' => '', 'com' => 'registration' ]);
+            return view('member.registration', ['mess' => '', 'com' => 'registration']);
         }
     }
     protected function addMember($request)
@@ -332,7 +337,7 @@ class MemberController
         $data['created_at'] = date('Y-m-d H:i:s');
         $user = MemberModel::create($data);
         $data['code'] = Func::generateRandomString(6) . $user->id;
-        MemberModel::where('id', $user->id)->update([ 'password' => Hash::make($request->input('password')), 'code' => $data['code'] ]);
+        MemberModel::where('id', $user->id)->update(['password' => Hash::make($request->input('password')), 'code' => $data['code']]);
         //if(!empty($role) && config('type.users.permission')) $user->grantRole($role);
         transfer('Tạo tài khoản thành công', 1, url('member.login'));
     }
@@ -362,7 +367,7 @@ class MemberController
                     $Randompassword = Str::password(10, true, true, true, false);
                     $arrayEmail = null;
                     $subject = (!empty($dataContact['subject'])) ? $dataContact['subject'] : 'Thư liên hệ khách hàng';
-                    $message = Email::markdown('email_template.member.forgot-password', [ 'username' => $username, 'email' => $email, 'password' => $Randompassword ]);
+                    $message = Email::markdown('email_template.member.forgot-password', ['username' => $username, 'email' => $email, 'password' => $Randompassword]);
                     $optCompany = json_decode(Func::setting('options'), true);
                     $company = Func::setting();
                     $file = 'file';
@@ -374,7 +379,7 @@ class MemberController
                             )
                         );
                         Email::send("customer", $arrayEmail, $subject, $message, $file, $optCompany, $company);
-                        MemberModel::where('username', '=', $username)->where('email', '=', $email)->update([ 'password' => Hash::make($Randompassword) ]);
+                        MemberModel::where('username', '=', $username)->where('email', '=', $email)->update(['password' => Hash::make($Randompassword)]);
                         return transfer('Vui lòng kiểm tra email.', true, url('member.login'));
                     } else {
                         return transfer('Thông tin liên hệ được gửi thất bại.', false, url('member.login'));
@@ -384,7 +389,7 @@ class MemberController
                 }
             }
         } else {
-            return view('member.forgotpass', [ 'messageforgot' => '', 'com' => 'forgotpass' ]);
+            return view('member.forgotpass', ['messageforgot' => '', 'com' => 'forgotpass']);
         }
     }
     /*order history */
@@ -419,7 +424,7 @@ class MemberController
         if (!empty($this->configType->$type->properties)) {
             $query = PropertiesListModel::select('*')->where('type', $type);
             if (!empty(config('type.categoriesProperties')) && !empty($item['id_list']))
-                $query->whereRaw("FIND_IN_SET(?,id_list)", [ $item['id_list'] ]);
+                $query->whereRaw("FIND_IN_SET(?,id_list)", [$item['id_list']]);
             $propertieslist = $query->orderBy('numb', 'asc')->get();
             $propertiescard = ProductPropertiesModel::select('*')->where('id_parent', $id)->orderBy('id', 'asc')->get();
         }
@@ -471,7 +476,7 @@ class MemberController
             ->orderBy('numb', 'asc')
             ->orderBy('id', 'desc')
             ->paginate(10);
-        return view('member.booksheft', [ 'items' => $items, 'configMan' => $this->configType->$type, 'com' => $com, 'act' => $act, 'type' => $type ]);
+        return view('member.booksheft', ['items' => $items, 'configMan' => $this->configType->$type, 'com' => $com, 'act' => $act, 'type' => $type]);
     }
 
     // Xóa truyện từ kệ sách
@@ -485,7 +490,6 @@ class MemberController
                 ->where('id_product', $id)
                 ->where('id_member', $idMember)
                 ->delete();
-
         } elseif (!empty($request->listid)) {
             $listid = explode(",", $request->listid);
             for ($i = 0; $i < count($listid); $i++) {
@@ -548,7 +552,7 @@ class MemberController
 
             ->orderBy('id', 'desc')
             ->paginate(10);
-        return view('member.list', [ 'items' => $items, 'configMan' => $this->configType->$type, 'com' => $com, 'act' => $act, 'type' => $type ]);
+        return view('member.list', ['items' => $items, 'configMan' => $this->configType->$type, 'com' => $com, 'act' => $act, 'type' => $type]);
     }
     public function edit($com, $act, $type, Request $request)
     {
@@ -567,7 +571,7 @@ class MemberController
         if (!empty($this->configType->$type->properties)) {
             $query = PropertiesListModel::select('*')->where('type', $type);
             if (!empty(config('type.categoriesProperties')) && !empty($item['id_list']))
-                $query->whereRaw("FIND_IN_SET(?,id_list)", [ $item['id_list'] ]);
+                $query->whereRaw("FIND_IN_SET(?,id_list)", [$item['id_list']]);
             $propertieslist = $query->orderBy('numb', 'asc')->get();
             $propertiescard = ProductPropertiesModel::select('*')->where('id_parent', $id)->orderBy('id', 'asc')->get();
         }
@@ -662,7 +666,7 @@ class MemberController
                 response()->redirect(linkReferer());
             }
             $data['status'] = "hienthi";
-            $urlReturn = url('memberHome.list', [ 'com' => 'product', 'act' => 'list', 'type' => $type ], !empty($data['id_novel']) ? [ 'id_novel' => $data['id_novel'] ] : []);
+            $urlReturn = url('memberHome.list', ['com' => 'product', 'act' => 'list', 'type' => $type], !empty($data['id_novel']) ? ['id_novel' => $data['id_novel']] : []);
             if ($id) {
                 $data['date_updated'] = time();
 
@@ -720,7 +724,7 @@ class MemberController
                         foreach ($listFollow as $follow) {
                             $oldData = !empty($follow->chapter_update) ? json_decode($follow->chapter_update, true) : [];
                             if (!in_array($itemSave->id, $oldData)) {
-                                $newData = array_merge($oldData, [ $itemSave->id ]);
+                                $newData = array_merge($oldData, [$itemSave->id]);
                                 $follow->chapter_update = json_encode($newData);
                                 $follow->save();
                             }
@@ -732,7 +736,6 @@ class MemberController
                         }
                         $itemSave->update($dataSlugChapter);
                         $itemSave->save();
-
                     }
 
                     if (!empty($this->configType->$type->tags)) {

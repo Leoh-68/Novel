@@ -1,4 +1,5 @@
 <?php
+
 /******************************************************************************
  * NINA VIỆT NAM
  * Email: nina@nina.vn
@@ -14,7 +15,7 @@ return [
         'kind' => 'static',
         'title' => true,
         'link' => true,
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'images' => true,
         'width' => 128,
         'height' => 92,
@@ -25,7 +26,7 @@ return [
         'kind' => 'static',
         'title' => true,
         'link' => true,
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'images' => true,
         'width' => 920,
         'height' => 800,
@@ -37,7 +38,7 @@ return [
         'number' => 4,
         'title' => true,
         'link' => true,
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'images' => true,
         'width' => 585,
         'height' => 230,
@@ -49,7 +50,7 @@ return [
         'title' => true,
         'desc' => true,
         'desc_cke' => true,
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'images' => true,
         'width' => 48,
         'height' => 48,
@@ -59,7 +60,7 @@ return [
     'slide' => [
         'title_main' => "Slideshow",
         'kind' => 'album',
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'number' => 5,
         'images' => true,
         'show_images' => true,
@@ -71,11 +72,11 @@ return [
         'height' => 580,
         'thumb' => '1366x580x1',
     ],
-   
+
     'social' => [
         'title_main' => "Mạng xã hội",
         'kind' => 'album',
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'number' => 4,
         'show_images' => true,
         'images' => true,
@@ -90,7 +91,7 @@ return [
     'phuogn-thuc-thanh-toan' => [
         'title_main' => "Phương thức thanh toán",
         'kind' => 'album',
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'number' => 4,
         'show_images' => true,
         'images' => true,
@@ -102,11 +103,26 @@ return [
         'height' => 50,
         'thumb' => '80x50x1',
     ],
+    'anh-co-san' => [
+        'title_main' => "Ảnh Avatar có sẵn",
+        'kind' => 'album',
+        'status' => ["hienthi" => "Hiển thị"],
+        'number' => 4,
+        'show_images' => true,
+        'images' => true,
+        'avatar' => true,
+        'link' => false,
+        'name' => false,
+        'desc' => false,
+        'width' => 200,
+        'height' => 200,
+        'thumb' => '200x200x1',
+    ],
 
     'tool' => [
         'title_main' => "Tiện ích",
         'kind' => 'album',
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'number' => 4,
         'show_images' => true,
         'images' => true,
@@ -122,7 +138,7 @@ return [
     'video' => [
         'title_main' => "Video",
         'kind' => 'album',
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'number' => 4,
         'show_images' => true,
         'images' => true,
@@ -140,7 +156,7 @@ return [
         'kind' => 'static',
         'title' => true,
         'link' => true,
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'images' => true,
         'width' => 360,
         'height' => 300,
@@ -154,7 +170,7 @@ return [
         'title' => false,
         'desc_cke' => false,
         'link' => false,
-        'status' => [ "hienthi" => "Hiển thị" ],
+        'status' => ["hienthi" => "Hiển thị"],
         'images' => true,
         'width' => 70,
         'height' => 70,

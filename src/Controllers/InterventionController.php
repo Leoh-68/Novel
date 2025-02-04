@@ -31,7 +31,7 @@ class InterventionController extends Controller
         } else {
             $image = Image::read($thumb_path . '/' . $imageUrl. '.webp');
         }
-        return $image->response();
+        return $image->toWebp(100)->response();
     }
     public function watermark($thumbsize, $path, $folder, $imageUrl)
     {
