@@ -128,6 +128,8 @@
                                     <div class="invalid-feedback">{{ __('web.vuilongnhapdiachi') }}</div>
                                 </div>
                             </div>
+                            {{-- loadImage('assets/images/user.jpg','file-zone-avatar') --}}
+                            
                             <div class="col-12 col-lg-6">
                                 <div class="cover-img-member">
 
@@ -237,8 +239,8 @@
                                             </div>
 
 
-                                            
-                                         
+
+
                                             <div class="view-cropper">
                                                 <div class="photoUpload-detail" id="photoUpload-preview-avatar">
                                                     @if (!empty($photoDetail['image']))
