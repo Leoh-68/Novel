@@ -1,0 +1,50 @@
+<?php $__currentLoopData = $params; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $key => $v_reply): $loop = $this->incrementLoopIndices();  ?>
+ <?php $status_array = !empty($v_reply['status']) ? explode(',', $v_reply['status']) : [];  ?>
+ <div class="comment-replies-item">
+ <div class="flex items-center gap-2">
+
+
+ <?php if(!empty($v_reply['id_user'])): ?>
+ <div class="comment-item-avatar text-start">
+ <div class="inline-block rounded-full overflow-hidden">
+ <img src="<?php echo \html_entity_decode(assets_photo('user', '45x45x1', $v_reply->getUser()->first()->avatar, 'thumbs')??'', ENT_QUOTES, 'UTF-8'); ?>"
+ alt="">
+ </div>
+ </div>
+ <?php else: ?>
+ <div class="comment-replies-letter <?php echo \html_entity_decode($v_reply['poster']??'', ENT_QUOTES, 'UTF-8'); ?>"><?php echo \html_entity_decode(Comment::subName($v_reply['fullname'])??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ </div>
+ <?php endif; ?>
+
+ <div class="comment-replies-info">
+ <div class="comment-replies-name mb-1">
+ <?php echo \html_entity_decode($v_reply['fullname']??'', ENT_QUOTES, 'UTF-8'); ?>
+
+ <span class="font-weight-normal small text-muted mx-2">
+ <?php echo \html_entity_decode(Comment::timeAgo($v_reply['date_posted'])??'', ENT_QUOTES, 'UTF-8'); ?></span>
+ <?php if($v_reply['poster'] == 'admin'): ?>
+ <span class="font-weight-normal text-info ml-2">(Phản hồi bởi Quản trị viên)</span>
+ <?php elseif($v_reply['poster'] == 'author'): ?>
+ <span class="font-weight-normal text-info ml-2">(Phản hồi bởi tác giả)</span>
+ <?php endif; ?>
+ <label class="switch switch-success" data-bs-toggle="tooltip" data-bs-trigger="hover"
+ data-bs-placement="bottom" aria-label="Duyệt tin" data-bs-original-title="Duyệt tin">
+ <?php  $this->startComponent('component.switchButton', [
+ 'keyC' => 'hienthi',
+ 'idC' => $v_reply['id'],
+ 'tableC' => 'comment',
+ 'status_arrayC' => $status_array,
+ ]); ?>
+ <?php echo $this->renderComponent(); ?>
+ </label>
+ </div>
+ <div class="comment-replies-content"><?php echo \html_entity_decode(nl2br(Func::decodeHtmlChars($v_reply['content']))??'', ENT_QUOTES, 'UTF-8'); ?></div>
+ </div>
+ </div>
+ </div>
+<?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+<?php if(count($params) > 1): ?>
+ <p class="view-more-replies">&#10551; Xem tất cả <?php echo \html_entity_decode(count($params)??'', ENT_QUOTES, 'UTF-8'); ?> bình luận</p>
+<?php endif; ?>

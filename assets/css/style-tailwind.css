@@ -1053,6 +1053,10 @@ img {
   margin-top: 1.25rem;
 }
 
+.\!mb-4 {
+  margin-bottom: 1rem !important;
+}
+
 .line-clamp-1 {
   overflow: hidden;
   display: -webkit-box;
@@ -1223,6 +1227,10 @@ img {
 
 .grid-cols-9 {
   grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .grid-rows-3 {

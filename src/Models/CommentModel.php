@@ -34,5 +34,10 @@ class CommentModel extends Model
     {
         return $this->hasOne(MemberModel::class, 'id', 'id_user');
     }
+    public function getVariant(): \NINA\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(ProductModel::class, 'id', 'id_variant');
+    }
+
 
 }

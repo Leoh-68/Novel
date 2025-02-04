@@ -1231,6 +1231,8 @@ $(document).ready(function () {
 
 	document.body.addEventListener('click', function (event) {
 		if (event.target.classList.contains('btn-reply-comment')) {
+
+			
 			document.querySelectorAll('.response-reply-admin').forEach((element) => {
 				element.style.display = 'block';
 			});

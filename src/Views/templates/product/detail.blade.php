@@ -27,11 +27,34 @@
                         </div>
 
                         <div class="rate-detail flex items-center gap-3">
-                            @for ($i = 0; $i < 10; $i++)
-                                <i class="fa fa-star"></i>
-                            @endfor
-                            (9/10 từ 1000 bạn đọc)
+                            <div class="comment-star">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span style="width: {{ Comment::avgStar($rowDetail['id'], $rowDetail['type']) }}%">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </div>
+                            ({{ Comment::avgPoint($rowDetail['id'], $rowDetail['type']) }}/10 từ {{ $countComment }} bạn
+                            đọc)
                         </div>
+
                         <div class="publish-detail">
                             <span>
                                 Xuất bản ngày {{ \Carbon\Carbon::parse($rowDetail['created_at'])->format('d/m/Y') }}
@@ -191,7 +214,7 @@
                                                         @php
                                                             $date = \Carbon\Carbon::parse($authorInfo->created_at);
                                                             $now = \Carbon\Carbon::now();
-                                                            $diff = round($date->diffInDays($now));
+                                                            $diff = round($now->diffInDays($now));
                                                         @endphp
                                                         {{ $diff }}
                                                     </span>
@@ -365,7 +388,7 @@
                 </div>
             </div>
         </div>
-   
+
 
         <div class="py-3">
             @component('component.comment.comment', ['rowDetail' => $rowDetail])

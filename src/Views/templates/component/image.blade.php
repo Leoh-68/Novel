@@ -1,5 +1,5 @@
 <div class="photoUpload-zone">
-    <div class="crop-view-popup d-block ">
+    <div class="crop-view-popup d-block  mx-auto">
         <div class="setting-crop">
             <input type="" name="additionalData" id="additionalData" value="someAdditionalData">
             <ul class="mb-3 hide-crop ">

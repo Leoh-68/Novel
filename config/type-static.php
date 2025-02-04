@@ -36,6 +36,23 @@ return [
         'isRouter' => true,
     ],
 
+    'nap-hoa' => [
+        'title_main' => "Nạp hoa",
+        'website' => [
+            'type' => 'object',
+            'title' => 'naphoa'
+        ],
+        'status' => [
+        "hienthi" => 'Hiển thị'
+        ],
+        'name' => true,
+        'desc' => true,
+        'desc_cke' => true,
+        'content' => true,
+        'content_cke' => true,
+        'seo' => true,
+        'isRouter' => true,
+    ],
     'slogan' => [
         'title_main' => "Slogan",
         'website' => [

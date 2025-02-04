@@ -1079,214 +1079,241 @@ NN_FRAMEWORK.Api = function () {
 			});
 
 		});
-
-
-
-
-
-
-
-		$('.title-cat-main span').click(function (e) {
-
-			$('.title-cat-main span').removeClass('active');
-
-			$(this).addClass('active');
-
-			var thisClass = $(this).parents('.load-product');
-
-			var url = thisClass.data('url');
-
-			var type = thisClass.data('type');
-
-			var id = $(this).data('id');
-
-			var TOKEN = window['TOKEN'];
-
-			$.ajax({
-
-				url: url,
-
-				type: 'POST',
-
-				data: {
-
-					type: type,
-
-					id: id,
-
-					csrf_token: TOKEN
-
-				},
-
-				success: function (result) {
-
-					thisClass.find('.paging-product').html(result);
-
-					NN_FRAMEWORK.Lazys();
-
-					NN_FRAMEWORK.OwlPage();
-
-				}
-
-			});
-
-		});
-
 	}
 
+	$('.title-tags-main').click(function (e) {
 
+		$('.title-tags-main').removeClass('active');
 
-	if (isExist($(".choose__item"))) {
+		$(this).addClass('active');
 
-		$(".choose__item").click(function () {
+		var thisClass = $(this).parents('.novel-tags');
 
-			var paginate = $(this).data('paginate'),
+		var id = $(this).data('id');
 
-				type = $(this).data('type'),
+		var TOKEN = window['TOKEN'];
+		holdonOpen();
+		$.ajax({
 
-				idList = $(this).data("list"),
+			url: 'load-product-tags',
 
-				idCat = $(this).data("cat"),
+			type: 'GET',
 
-				eShow = '.productListHome__main-' + idList,
+			data: {
+				id: id,
+				csrf_token: TOKEN
+			},
 
-				url = $(this).data('url');
-
-			$(this).parents(".productList__cate").find(".choose__item.active").removeClass("active");
-
-			$(this).addClass("active");
-
-			$.ajax({
-
-				url: url,
-
-				type: "GET",
-
-				dataType: 'html',
-
-				data: {
-
-					paginate: paginate,
-
-					type: type,
-
-					idList: idList,
-
-					idCat: idCat,
-
-					eShow: eShow,
-
-				},
-
-				success: function (result) {
-
-					$(eShow).html(result);
-
-					PaginateHome(eShow);
-
-				}
-
-			});
+			success: function (result) {
+				thisClass.find('.cover-novel-home').html(result);
+				holdonClose();
+				NN_FRAMEWORK.CalculateWidth();
+			}
 
 		});
-
-		$(".choose_all").each(function () {
-
-			var paginate = $(this).data('paginate'),
-
-				type = $(this).data('type'),
-
-				idList = $(this).data("list"),
-
-				idCat = $(this).data("cat"),
-
-				eShow = '.productListHome__main-' + idList,
-
-				url = $(this).data('url');
-
-			$.ajax({
-
-				url: url,
-
-				type: "GET",
-
-				dataType: 'html',
-
-				data: {
-
-					paginate: paginate,
-
-					type: type,
-
-					idList: idList,
-
-					idCat: idCat,
-
-					eShow: eShow,
-
-				},
-
-				success: function (result) {
-
-					$(eShow).html(result);
-
-					PaginateHome(eShow);
-
-				}
-
-			});
-
-		});
-
-	}
-
-
-
-	if (isExist($('.item-search'))) {
-
-		$('.item-search input').click(function () {
-
-			Filter();
-
-		});
-
-	}
-
-
-
-	if (isExist($('.sort-select-main'))) {
-
-		$('.sort-select-main p a').click(function () {
-
-			$('.sort-select-main p a').removeClass('check');
-
-			$(this).addClass('check');
-
-			Filter();
-
-		});
-
-	}
-
-
-
-	$('.filter').click(function (e) {
-
-		$('.left-product').toggleClass('show');
 
 	});
 
 
 
-	TextSort();
-
-};
 
 
 
 
 
 
+
+	$('.title-cat-main span').click(function (e) {
+
+		$('.title-cat-main span').removeClass('active');
+
+		$(this).addClass('active');
+
+		var thisClass = $(this).parents('.load-product');
+
+		var url = thisClass.data('url');
+
+		var type = thisClass.data('type');
+
+		var id = $(this).data('id');
+
+		var TOKEN = window['TOKEN'];
+
+		$.ajax({
+
+			url: url,
+
+			type: 'POST',
+
+			data: {
+
+				type: type,
+
+				id: id,
+
+				csrf_token: TOKEN
+
+			},
+
+			success: function (result) {
+
+				thisClass.find('.paging-product').html(result);
+
+				NN_FRAMEWORK.Lazys();
+
+				NN_FRAMEWORK.OwlPage();
+
+			}
+
+		});
+
+	});
+
+}
+
+
+
+if (isExist($(".choose__item"))) {
+
+	$(".choose__item").click(function () {
+
+		var paginate = $(this).data('paginate'),
+
+			type = $(this).data('type'),
+
+			idList = $(this).data("list"),
+
+			idCat = $(this).data("cat"),
+
+			eShow = '.productListHome__main-' + idList,
+
+			url = $(this).data('url');
+
+		$(this).parents(".productList__cate").find(".choose__item.active").removeClass("active");
+
+		$(this).addClass("active");
+
+		$.ajax({
+
+			url: url,
+
+			type: "GET",
+
+			dataType: 'html',
+
+			data: {
+
+				paginate: paginate,
+
+				type: type,
+
+				idList: idList,
+
+				idCat: idCat,
+
+				eShow: eShow,
+
+			},
+
+			success: function (result) {
+
+				$(eShow).html(result);
+
+				PaginateHome(eShow);
+
+			}
+
+		});
+
+	});
+
+	$(".choose_all").each(function () {
+
+		var paginate = $(this).data('paginate'),
+
+			type = $(this).data('type'),
+
+			idList = $(this).data("list"),
+
+			idCat = $(this).data("cat"),
+
+			eShow = '.productListHome__main-' + idList,
+
+			url = $(this).data('url');
+
+		$.ajax({
+
+			url: url,
+
+			type: "GET",
+
+			dataType: 'html',
+
+			data: {
+
+				paginate: paginate,
+
+				type: type,
+
+				idList: idList,
+
+				idCat: idCat,
+
+				eShow: eShow,
+
+			},
+
+			success: function (result) {
+
+				$(eShow).html(result);
+
+				PaginateHome(eShow);
+
+			}
+
+		});
+
+	});
+
+}
+
+
+
+if (isExist($('.item-search'))) {
+
+	$('.item-search input').click(function () {
+
+		Filter();
+
+	});
+
+}
+
+
+
+if (isExist($('.sort-select-main'))) {
+
+	$('.sort-select-main p a').click(function () {
+
+		$('.sort-select-main p a').removeClass('check');
+
+		$(this).addClass('check');
+
+		Filter();
+
+	});
+
+}
+
+
+
+$('.filter').click(function (e) {
+
+	$('.left-product').toggleClass('show');
+
+});
+
+TextSort();
 
 NN_FRAMEWORK.Properties = function () {
 
@@ -2534,7 +2561,15 @@ NN_FRAMEWORK.subscribeNovel = function () {
 		console.log(novelId, idMember);
 	}
 }
-
+NN_FRAMEWORK.CalculateWidth = function () {
+	
+		$('.item').each(function (index, element) {
+			// element == this
+			mw = $(this).width();
+			$(this).find('.info-content').width((mw * 2) - 40);
+		});
+	
+}
 NN_FRAMEWORK.myJs = function () {
 
 	if (isExist($('.buynovel'))) {
@@ -2586,7 +2621,7 @@ NN_FRAMEWORK.myJs = function () {
 			let userCoin = $('.donate-desc').attr('data-user-coin');
 			let donateCoin = $(this).val();
 			let donateDesc = $('.donate-desc');
-			
+
 			if (userCoin - donateCoin < 0) {
 				Swal.fire({
 					title: 'Bạn hết hoa ròi',
@@ -2641,14 +2676,7 @@ NN_FRAMEWORK.myJs = function () {
 	}
 
 
-	$(window).bind("load resize", function () {
-		$('.item').each(function (index, element) {
-			// element == this
-			mw = $(this).width();
-			$(this).find('.info-content').width((mw * 2) - 40);
-		});
-	});
-
+	
 
 	if (isExist($('.check-form'))) {
 
@@ -2747,6 +2775,7 @@ $(document).ready(function () {
 	// NN_FRAMEWORK.Flipbook();
 
 	NN_FRAMEWORK.myJs();
+	NN_FRAMEWORK.CalculateWidth();
 
 
 

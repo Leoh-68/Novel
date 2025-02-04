@@ -22,6 +22,13 @@
                 <input type="text" class="form-control text-sm" name="dataReview[email]" id="review-email"
                     placeholder="Email *" value="{{ Auth::guard('member')->user()->email }}">
             </div>
+        
+            @if ($rowDetail['id_member'] == Auth::guard('member')->user()->id)
+                <div class="col-4 mg-col-10">
+                    <input type="text" class="form-control text-sm" name="dataReview[poster]" id="review-poster"
+                        placeholder="" value="author">
+                </div>
+            @endif
         </div>
     </div>
     <div class="text-right">

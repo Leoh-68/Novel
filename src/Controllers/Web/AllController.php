@@ -31,8 +31,9 @@ class AllController extends Controller
         if ($_SESSION['detect_allcontroller']) {
             return;
         }
+
         $_SESSION['detect_allcontroller'] = true;
-       
+
         $userLogin = !empty(Auth::guard('member')->user()) ? Auth::guard('member')->user() : null;
 
         if (!empty($userLogin)) {
@@ -44,6 +45,7 @@ class AllController extends Controller
                 ->limit(1)
                 ->get();
         }
+        
         $userLoginCheck = Auth::guard('member')->check();
         $newsUserUpdated = $userLogin->fullname ?? 'nologin';
         $usernamelogin = $newsUserUpdated;

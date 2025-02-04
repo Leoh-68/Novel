@@ -12,7 +12,6 @@
                     <img src="{{ assets_photo('user', '65x65x1', $params->getUser()->first()->avatar, 'thumbs') }}"
                         alt="">
                 </div>
-
             </div>
         @else
             <div class="comment-item-letter">{{ Comment::subName($params['fullname']) }}</div>
@@ -32,7 +31,8 @@
 
         <a class="btn-reply-comment d-inline-block align-top text-decoration-none text-primary mb-2"
             href="javascript:void(0)" data-name="{{ $params['fullname'] }}">Trả lời</a>
-
+        @component('component.comment.reply', ['params' => $params])
+        @endcomponent
         @if (!empty($params['photo']) || !empty($params['video']) || !empty($album))
             @component('component.comment.media', ['params' => $params, 'album' => $album])
             @endcomponent
@@ -46,7 +46,6 @@
 
             </div>
         @endif
-        @component('component.comment.reply', ['params' => $params])
-        @endcomponent
+
     </div>
 </div>

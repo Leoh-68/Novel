@@ -3,10 +3,10 @@
     @if ($productNB->isNotEmpty())
         <div class="wrap-slider">
             <div class="wrap-content">
-                <div class="grid grid-cols-5 gap-[17px] mr-[100px] items-center">
+                <div class="grid grid-cols-5 gap-[17px] mr-[100px] ">
                     <div class="col-span-4">
                         <div class="slider-novel-left swiper ">
-                            <div class="swiper-wrapper">
+                            <div class="swiper-wrapper ">
                                 @foreach ($productNB as $v)
                                     <div class="swiper-slide">
                                         <div class="novel-item">
@@ -212,11 +212,11 @@
                                                             </div>
                                                         @endif
                                                         <div class="items-properties-info author">
-                                                            <img src="assets/images/TempImages/ico-author.png"
+                                                            <img src="assets/images/TempImages/cal-white-1.png"
                                                                 alt="">
                                                             <span>
                                                                 <strong>
-                                                                    Xuất bản
+                                                                    Xuất bản:
                                                                 </strong>
                                                                 {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}
                                                             </span>
@@ -255,8 +255,8 @@
 
     <div class="wrap-ranking-1 padding-bottom-main">
         <div class="wrap-content">
-            <div class="box-title-ranking mb-3">
-                <div class="title-main">
+            <div class="box-title-ranking !mb-4">
+                <div class="title-main !mb-0">
                     <h2>
                         Bảng xếp hạng
                     </h2>
@@ -352,7 +352,7 @@
                                                     <strong>
                                                         Số chương đăng
                                                     </strong>
-                                                    {{$item['product_count']}} chương
+                                                    {{ $item['product_count'] }} chương
                                                 </span>
                                             </div>
                                         </div>
@@ -378,12 +378,11 @@
     </div>
 
 
-
     <div class="wrap-novel-status bg-[#FFF5FB] padding-main">
         <div class="wrap-content">
             <div class="grid grid-cols-2 gap-[40px]">
                 <div class="page">
-                    <div class="title-tags-main">
+                    <div class="title-tags-main active">
                         <span>
                             TRUYỆN ĐÃ HOÀN THÀNH
                         </span>
@@ -442,7 +441,7 @@
                                                         Tác giả:
                                                     </strong>
                                                     <span>
-                                                        Khánh nè
+                                                        {{ $item->getAuthor->fullname }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -454,7 +453,7 @@
                     </div>
                 </div>
                 <div class="page">
-                    <div class="title-tags-main">
+                    <div class="title-tags-main active">
                         <span>
                             TRUYỆN MỚI CẬP NHẬT
                         </span>
@@ -494,18 +493,28 @@
                                                     <strong>
                                                         Tác giả:
                                                     </strong>
-                                                    Khánh nè
+                                                    {{ $item->getAuthor->fullname }}
                                                 </span>
                                             </div>
-                                            <div class="items-properties-info author">
-                                                <img src="assets/images/TempImages/ico-pt.png" alt="">
-                                                <span>
-                                                    <strong>
-                                                        Thể loại:
-                                                    </strong>
-                                                    Khánh nè
-                                                </span>
-                                            </div>
+                                            @if ($item->tags->isNotEmpty())
+                                                <div class="items-properties-info author">
+                                                    <img src="assets/images/TempImages/ico-pt.png" alt="">
+                                                    <span>
+                                                        <strong>
+                                                            Thể loại:
+                                                        </strong>
+                                                        @foreach ($item->tags as $ktag => $tag)
+                                                            <a href="{{ $tag->slugvi }}" class="text-decoration-none">
+                                                                {{ $tag->namevi }}
+                                                            </a>
+                                                            @if ($ktag < $item->tags->count() - 1)
+                                                                ,
+                                                            @endif
+                                                        @endforeach
+                                                    </span>
+                                                </div>
+                                            @endif
+
                                             <div class="ext grid grid-cols-2 gap-[10px]">
                                                 <div class="items-properties-info author">
                                                     <img src="assets/images/TempImages/ico-view-black.png" alt="">
@@ -542,6 +551,104 @@
             </div>
         </div>
     </div>
+
+
+
+    @if ($tagsHome->isNotEmpty())
+        <div class="wrap-novel-home padding-main">
+            <div class="wrap-content">
+                <div class="novel-home novel-tags">
+                    <div class="novel-home-top grid grid-cols-4 gap-[30px]">
+                        @foreach ($tagsHome as $item)
+                            <div class="title-tags-main active" data-id="{{ $item->id }}">
+                                <span>
+                                    {{ $item->namevi }}
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="cover-novel-home">
+                        <div class="grid grid-cols-5 gap-[20px]">
+                            @foreach ($productNB as $item)
+                                <div class="item relative">
+                                    <a href="{{ $item->slugvi }}" class=" text-decoration-none ">
+                                        <div class="image main-cover-img-novel">
+                                            @component('component.tool.image', [
+                                                'folder' => 'product',
+                                                'type' => 'truyen',
+                                                'item' => $item,
+                                                'effect' => 'noneEff',
+                                                'aspect' => false,
+                                            ])
+                                            @endcomponent
+                                        </div>
+                                    </a>
+                                    <div class="info">
+
+                                        <div class="info-content">
+                                            <a href="{{ $item->slugvi }}" class=" text-decoration-none ">
+                                                <div class="name">
+                                                    <span>
+                                                        {{ $item->namevi }}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                            <div class="cover-info">
+                                                <div class="grid grid-cols-2 items-end">
+                                                    <div class="left">
+                                                        @if (!empty($item->getAuthor->fullname))
+                                                            <div class="items-properties-info author">
+                                                                <img src="assets/images/TempImages/ico-author.png"
+                                                                    alt="">
+                                                                <span>
+                                                                    <strong>
+                                                                        Tác giả:
+                                                                    </strong>
+                                                                    {{ $item->getAuthor->fullname }}
+                                                                </span>
+                                                            </div>
+                                                        @endif
+                                                        <div class="items-properties-info author">
+                                                            <img src="assets/images/TempImages/ico-author.png"
+                                                                alt="">
+                                                            <span>
+                                                                <strong>
+                                                                    Xuất bản
+                                                                </strong>
+                                                                {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="right flex gap-2">
+                                                        <div class="btn-rn flex items-center gap-[5px]">
+                                                            <img src="assets/images/TempImages/ico-tl.png" alt="">
+                                                            <span>
+                                                                ĐỌC TRUYỆN
+                                                            </span>
+                                                        </div>
+                                                        <div class="btn-favor">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="desc">
+                                                <span class="line-clamp-4">
+                                                    {{ $item->descvi }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @continue
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="wrap-ranking-1 padding-main">
         <div class="wrap-content">
             <div class="box-title-ranking mb-3">
@@ -647,5 +754,85 @@
         </div>
     </div>
 
+    @if ($commentHome->isNotEmpty())
+        <div class="wrap-history-voted padding-bottom-main">
+            <div class="wrap-content">
+                <div class="box-title-ranking !mb-4">
+                    <div class="title-main !mb-0">
+                        <h2>
+                            ĐÁNH GIÁ BẠN ĐỌC
+                        </h2>
+                    </div>
+                    <div class="text-center">
+                        <img src="assets/images/TempImages/hoa.png" alt="">
+                    </div>
+                </div>
+                <div class="history-voted">
+                    <div class="history-voted-list owl-page owl-carousel owl-theme"
+                        data-items="screen:0|items:3|margin:30,screen:425|items:3|margin:30,screen:575|items:3|margin:30,screen:767|items:3|margin:30,screen:991|items:3|margin:30,screen:1199|items:3|margin:30"
+                        data-rewind="1" data-autoplay="1" data-loop="0" data-lazyload="0" data-mousedrag="1"
+                        data-touchdrag="1" data-smartspeed="500" data-autoplayspeed="3500" data-dots="0"
+                        data-nav="0" data-navtext = "" data-navcontainer = ".">
 
+
+                        @foreach ($commentHome as $item)
+                            <div class="item grid grid-cols-6 gap-[10px] items-center">
+                                <div class="image col-span-2">
+                                    @component('component.tool.image', [
+                                        'folder' => 'product',
+                                        'type' => 'truyen',
+                                        'item' => $item->getVariant,
+                                        'thumb' => '120x165x1',
+                                        'aspect' => false,
+                                    ])
+                                    @endcomponent
+                                </div>
+                                <div class="info col-span-4">
+                                    <div class="star flex items-center gap-1 flex-wrap">
+                                        @if ($item->star > 0)
+                                            @for ($i = 0; $i < $item->star; $i++)
+                                                <i class="fa-solid fa-star"></i>
+                                            @endfor
+                                        @endif
+                                    </div>
+                                    <div class="name-novel">
+                                        <span class="text-split-1">
+                                            {{ $item->getVariant->namevi }}
+                                        </span>
+                                    </div>
+                                    <div class="content-vote">
+                                        <span class="text-split-3">
+                                            {{ $item->content }}
+                                        </span>
+                                    </div>
+                                    <div class="user-vote-info flex items-center gap-2">
+                                        <div class="avt shrink-0  rounded-full overflow-hidden">
+                                            <img onerror="this.src='{{ thumbs('thumbs/50x50x1/assets/images/noimage.png.webp') }}';"
+                                                src="{{ assets_photo('user', '50x50x1', $item->getUser->avatar, 'thumbs') }}"
+                                                alt="{{ $item->getUser->fullname }}">
+                                        </div>
+                                        <div class="user-info">
+
+
+                                            <div class="name">
+                                                <span>
+                                                    {{ $item->getUser->fullname }}
+                                                </span>
+                                            </div>
+                                            <div class="desc">
+                                                <span>
+                                                    top 1 độc giả
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class=" control-owl transition"></div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection

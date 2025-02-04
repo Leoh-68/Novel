@@ -8,11 +8,14 @@
  */
 namespace NINA\Controllers\Web;
 use Illuminate\Http\Request;
-use NINA\Controllers\Controller;
+use Illuminate\Support\Str;
 use NINA\Core\Support\Facades\Auth;
 use NINA\Core\Support\Facades\File;
 use NINA\Core\Support\Facades\Hash;
 use NINA\Core\Support\Facades\Validator;
+use NINA\Core\Support\Facades\Email;
+use NINA\Core\Support\Facades\Func;
+use NINA\Core\Support\Facades\Flash;
 use NINA\Core\Support\JsonResponse;
 use NINA\Models\MemberModel;
 use NINA\Models\ProductTagsModel;
@@ -21,16 +24,13 @@ use NINA\Models\DistrictModel;
 use NINA\Models\SlugModel;
 use NINA\Models\SeoModel;
 use NINA\Models\WardModel;
-use Illuminate\Support\Str;
-use NINA\Core\Support\Facades\Email;
-use NINA\Core\Support\Facades\Func;
-use NINA\Core\Support\Facades\Flash;
-use NINA\Traits\TraitSave;
-use Carbon\Carbon;
 use NINA\Models\GalleryModel;
 use NINA\Models\FollowModel;
 use NINA\Models\ProductPropertiesModel;
 use NINA\Models\PropertiesListModel;
+use NINA\Traits\TraitSave;
+use Carbon\Carbon;
+
 class MemberController
 {
     use JsonResponse, TraitSave;
@@ -57,6 +57,122 @@ class MemberController
         //     ->first();
         // dd($slugCheck);
         return view('member.man', [ 'rowDetail' => $rowDetail ]);
+    }
+
+    // Xem thông tin member và cập nhật
+    public function infomember(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            if (!empty($request->csrf_token)) {
+                $id = $request->input('id');
+                $user = MemberModel::find($id);
+                if (empty($user))
+                    transfer('Cập nhật thông tin thất bại.', 0, url('member.info'));
+                $validator = Validator::makeValidate($request, [
+                    'email' => 'required|email',
+                ], [
+                    'fullname.required' => '* Vui lòng nhập họ tên',
+                    'email.required' => '* Vui lòng nhập email',
+                    'email.email' => 'Email không đúng định dạng',
+                ]);
+                if ($validator->isFailed()) {
+                    foreach ($request->all() as $k => $v)
+                        Flash::set($k, $v);
+                    Flash::set('message', $validator->errors());
+                    response()->redirect(url('member.info'));
+                }
+
+                if (!empty($request->input('old-password'))) {
+                    $old_pass = (!empty($request->input('old-password'))) ? $request->input('old-password') : '';
+                    $new_pass = (!empty($request->input('new-password'))) ? $request->input('new-password') : '';
+                    $renew_pass = (!empty($request->input('new-password-confirm'))) ? $request->input('new-password-confirm') : '';
+                    if (!empty($old_pass)) {
+                        if (!Hash::check($request['old-password'], $user['password'])) {
+                            $response['messages'][] = 'Mật khẩu cũ không chính xác';
+                        }
+                    }
+                    //Check password
+                    // if (!empty($new_pass) && !empty($renew_pass) && !Func::isMatch($new_pass, $renew_pass)) {
+                    //     $response['messages'][] = 'Xác nhận mật khẩu mới không trùng khớp';
+                    // }
+                    if (!empty($response)) {
+                        $response['status'] = 'danger';
+                        Flash::set('message', $response);
+                        response()->redirect(linkReferer());
+                    }
+                    $validator = Validator::makeValidate($request, [
+                        'old-password' => 'required',
+                        'new-password' => 'required',
+                        'new-password-confirm' => 'required|same:new-password',
+                    ], [
+                        'old-password.required' => '* Vui lòng nhập mật khẩu cũ',
+                        'new-password.required' => '* Vui lòng nhập mật khẩu mới',
+                        'new-password-confirm.required' => '* Vui lòng nhập mật khẩu mới',
+                        'new-password-confirm.same' => '* Mật khẩu mới không trùng khớp',
+                    ]);
+                    if ($validator->isFailed()) {
+                        foreach ($request->all() as $k => $v)
+                            Flash::set($k, $v);
+                        Flash::set('message', $validator->errors());
+                        response()->redirect(url('member.info'));
+                    }
+                    $password = Hash::make($request->input('new-password'));
+                }
+
+                if (!empty($request->input('birthday'))) {
+                    $birthday = $request->input('birthday');
+                    $data['birthday'] = strtotime(str_replace("/", "-", $birthday));
+                }
+
+
+                if (!empty($request->file('file-avatar') || $request->{"cropFile-avatar"})) {
+                    $file = $request->file('file-avatar');
+                    $cropFile = $request->{"cropFile-avatar"};
+
+                    if (!empty($cropFile)) {
+
+                        $this->insertImgeCrop(MemberModel::class, $request, $file, $cropFile, $id, 'user', 'avatar');
+                    } else {
+                        $this->insertImge(MemberModel::class, $request, $file, $id, 'user', 'avatar');
+                    }
+                }
+
+                if (!empty($request->file('file-banner')) || $request->{"cropFile-banner"}) {
+                    $file = $request->file('file-banner');
+
+                    $cropFile = $request->{"cropFile-banner"};
+                    if (!empty($cropFile)) {
+                        $this->insertImgeCrop(MemberModel::class, $request, $file, $cropFile, $id, 'user', 'banner');
+                    } else {
+                        $this->insertImge(MemberModel::class, $request, $file, $id, 'user', 'banner');
+                    }
+                }
+                $data['fullname'] = $request->input('fullname');
+                $data['address'] = $request->input('address');
+                $data['phone'] = $request->input('phone');
+                $data['email'] = $request->input('email');
+                $data['status'] = 'hienthi';
+                $data['numb'] = 1;
+                MemberModel::where('id', $user->id)->update($data);
+                if (!empty($password))
+                    MemberModel::where('id', $user->id)->update([ 'password' => $password ]);
+
+                $rowDetail = MemberModel::select('*')
+                    ->where('id', '=', $user->id)
+                    ->first();
+                Auth::guard('member')->user()->refresh();
+                return transfer('Cập nhật dữ liệu thành công.', 1, linkReferer());
+            }
+        } else {
+            if (!Auth::guard('member')->check()) {
+                return transfer('Vui lòng đăng nhập.', false, url('home'));
+            }
+            $id = \Auth::guard('member')->user()->id ?? 0;
+            $rowDetail = MemberModel::select('*')
+                ->where('id', '=', $id)
+                ->first();
+            return view('member.info', [ 'rowDetail' => $rowDetail, 'thongbao' => '', 'com' => 'info' ]);
+        }
     }
 
     /* Login */
@@ -213,6 +329,7 @@ class MemberController
         $data['email'] = $request->input('email');
         $data['status'] = 'hienthi';
         $data['numb'] = 1;
+        $data['created_at'] = date('Y-m-d H:i:s');
         $user = MemberModel::create($data);
         $data['code'] = Func::generateRandomString(6) . $user->id;
         MemberModel::where('id', $user->id)->update([ 'password' => Hash::make($request->input('password')), 'code' => $data['code'] ]);
@@ -333,6 +450,7 @@ class MemberController
         $query = ProductModel::select('product.*', 'follow.id as id_follow')
             ->join('follow', 'product.id', '=', 'follow.id_product')
             ->where("follow.id_member", Auth::guard('member')->user()->id)
+            ->where('follow.type', 'follow')
             ->where('product.type', $type);
 
         if (!empty($keyword))
@@ -481,7 +599,7 @@ class MemberController
                 }
 
                 $data['date_publish'] = (!empty($data['date_publish'])) ? Carbon::createFromFormat('d/m/Y H:i', $data['date_publish'])->toDateTimeString() : Carbon::now()->toDateTimeString();
-              
+
                 if (!empty($request->status)) {
                     $status = '';
                     foreach ($request->status as $attr_column => $attr_value)
@@ -491,7 +609,7 @@ class MemberController
                 } else {
                     $data['status'] = "";
                 }
-              
+
                 if (!empty($this->configType->$type->slug)) {
                     if (!empty($request->slugvi))
                         $data['slugvi'] = Func::changeTitle(htmlspecialchars($request->slugvi));
@@ -547,7 +665,7 @@ class MemberController
             $urlReturn = url('memberHome.list', [ 'com' => 'product', 'act' => 'list', 'type' => $type ], !empty($data['id_novel']) ? [ 'id_novel' => $data['id_novel'] ] : []);
             if ($id) {
                 $data['date_updated'] = time();
-    
+
                 if (ProductModel::where('id', $id)->where('type', $type)->update($data)) {
                     if (!empty($this->configType->$type->tags)) {
                         $this->insertTags(ProductTagsModel::class, $request, $dataTags, $id, $type);
@@ -707,16 +825,5 @@ class MemberController
             }
         }
         response()->redirect(linkReferer());
-    }
-
-    protected function getDistrict($request): void
-    {
-        $districts = DistrictModel::select([ 'id', 'namevi' ])->where('id_city', $request->id)->get()->toArray();
-        response()->json([ 'districts' => $districts ]);
-    }
-    protected function getWard($request): void
-    {
-        $wards = WardModel::select([ 'id', 'namevi' ])->where('id_district', $request->id)->get()->toArray();
-        response()->json([ 'wards' => $wards ]);
     }
 }

@@ -76,25 +76,13 @@
                                     <td class="align-middle text-center">
                                         <a class="text-dark text-break">{{ $items[$i]['created_at'] }}</a>
                                     </td>
-                                  
+
                                     <td class="align-middle text-center">
+
                                         <a class="text-dark text-break">
-                                            <div class="comment-item-rating mb-2 w-clear">
-                                                <div class="comment-item-star comment-star mb-0">
-                                                    <i class="ti ti-star"></i>
-                                                    <i class="ti ti-star"></i>
-                                                    <i class="ti ti-star"></i>
-                                                    <i class="ti ti-star"></i>
-                                                    <i class="ti ti-star"></i>
-                                                    <span style="width: {{ Comment::scoreStar($items[$i]['star']) }}%;">
-                                                        <i class="ti ti-star"></i>
-                                                        <i class="ti ti-star"></i>
-                                                        <i class="ti ti-star"></i>
-                                                        <i class="ti ti-star"></i>
-                                                        <i class="ti ti-star"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
+                                            <p>
+                                                {{ Comment::scoreStar($items[$i]['star']) / 10 }} <i class="ti ti-star"></i>
+                                            </p>                                          
                                         </a>
                                     </td>
 
@@ -128,7 +116,7 @@
                                     <td class="align-middle text-center">
                                         @component('component.buttonList', [
                                             'params' => [
-                                                'id' => $items[$i]['id']
+                                                'id' => $items[$i]['id'],
                                             ],
                                         ])
                                         @endcomponent

@@ -25,6 +25,7 @@ use NINA\Models\FollowModel;
 use NINA\Models\LinkModel;
 use NINA\Models\OrderNovelModel;
 use NINA\Models\ProductPropertiesModel;
+use NINA\Models\CommentModel;
 use Illuminate\Http\Request;
 use NINA\Core\Support\Facades\DB;
 use IvoPetkov\HTML5DOMDocument;
@@ -36,6 +37,11 @@ class Func
     use Singleton;
     private $hash;
     private $cache;
+
+    function checkVoted($idMember = 0, $idProduct = 0, $type = 'truyen')
+    {
+        return CommentModel::where('id_user', $idMember)->where('id_variant', $idProduct)->where('type', $type)->count();
+    }
     function checkOrderNovel($idMember = 0, $idProduct = 0)
     {
         $order = OrderNovelModel::where('id_user', $idMember)->where('id_product', $idProduct)->first();
@@ -63,7 +69,6 @@ class Func
     public function getProductMember($idMember = 0, $type = 'truyen')
     {
         return ProductModel::select('*')
-
             ->where('id_member', $idMember)
             ->where('type', $type)
             ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ]);

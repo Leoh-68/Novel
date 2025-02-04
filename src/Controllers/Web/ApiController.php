@@ -35,6 +35,24 @@ class ApiController
         $token = csrf_token();
         echo $token;
     }
+
+    public function status(Request $request)
+    {
+        $table = (!empty($request->table)) ? htmlspecialchars($request->table) : '';
+        $id = (!empty($request->id)) ? htmlspecialchars($request->id) : 0;
+        $attr = (!empty($request->attr)) ? htmlspecialchars($request->attr) : '';
+        if ($id) {
+            $status_detail = DB::table($table)->select('status')->where('id', $id)->first();
+            $status_array = (!empty($status_detail->status)) ? explode(',', $status_detail->status) : array();
+            if (array_search($attr, $status_array) !== false) {
+                $key = array_search($attr, $status_array);
+                unset($status_array[$key]);
+            } else {
+                array_push($status_array, $attr);
+            }
+            DB::table($table)->where('id', $id)->update([ 'status' => implode(',', $status_array) ]);
+        }
+    }
     public function numb(Request $request)
     {
 
@@ -43,9 +61,7 @@ class ApiController
         $value = (!empty($request->value)) ? htmlspecialchars($request->value) : '';
         if ($id) {
             $data['numb'] = $value;
-            $data['id_member'] = $idMember;
-            $data['id_novel'] = $idNovel;
-            $data['number_coin'] = $numberFlower;
+ 
             DB::table($table)->where('id', $id)->update($data);
         }
     }

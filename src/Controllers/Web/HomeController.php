@@ -18,6 +18,7 @@ use NINA\Models\NewsModel;
 use NINA\Models\ProductModel;
 use NINA\Models\ProductListModel;
 use NINA\Models\SettingModel;
+use NINA\Models\CommentModel;
 use DB;
 use NINA\Models\StaticModel;
 use NINA\Models\MemberModel;
@@ -30,7 +31,7 @@ class HomeController extends Controller
     {
 
         $photos = PhotoModel::select('namevi', 'photo', 'link', 'type', 'status')
-            ->whereIn('type', [ 'slide', 'tiktok', 'map-home', 'banner-home' ])
+            ->whereIn('type', [ 'slide', 'banner-home' ])
             ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
             ->orderBy('numb', 'asc')
             ->orderBy('id', 'desc')
@@ -40,51 +41,25 @@ class HomeController extends Controller
             ->where('type', 'banner-home')
             ->values();
 
-        $mapHome = $photos
-            ->where('type', 'map-home')
-            ->first();
+
 
         $slider = $photos
             ->where('type', 'slide')
             ->values();
 
-        $membersMostChapter = MemberModel::withCount('product')
-            ->having('product_count', '>', 0)
-            ->orderBy('product_count', 'desc')
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
-            ->get();
-
-        $tiktokHome = $photos
-            ->where('type', 'tiktok')
-            ->filter(function ($photo) {
-                return in_array('noibat', explode(',', $photo->status));
-            })
-            ->values();
 
         $newsCtrl = NewsModel::select('namevi', 'descvi', 'photo', 'slugvi', 'id', 'contentvi', 'status', 'type', 'member_list')
-            ->whereIn('type', [ 'chinh-sach', 'feedback', 'tin-tuc', 'cong-trinh', 'tieu-chi', 'phan-khu', 'ten-duong' ])
+            ->whereIn('type', [ 'chinh-sach', 'feedback', 'tin-tuc', 'tieu-chi' ])
             ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
             ->orderBy('numb', 'asc')
             ->orderBy('id', 'desc')
             ->get();
-
-        $streetHome = $newsCtrl
-            ->where('type', 'ten-duong')
-            ->values();
-
-        $boothHome = $newsCtrl
-            ->where('type', 'phan-khu')
-            ->values();
 
         $feedbackHome = $newsCtrl
             ->where('type', 'feedback');
 
         $criteriaHome = $newsCtrl
             ->where('type', 'tieu-chi');
-
-        $projectHome = $newsCtrl
-            ->where('type', 'cong-trinh');
-
 
         $newsHome = $newsCtrl
             ->where('type', 'tin-tuc')
@@ -99,7 +74,26 @@ class HomeController extends Controller
             ->orderBy('id', 'desc')
             ->first();
 
-        $productNB = ProductModel::select('namevi', 'photo', 'descvi', 'slugvi', 'regular_price', 'id_member', 'sale_price', 'discount', 'id', 'view','created_at')
+        $membersMostChapter = MemberModel::withCount('product')
+            ->having('product_count', '>', 0)
+            ->orderBy('product_count', 'desc')
+            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->get();
+
+        $memberNB = MemberModel::select('fullname', 'avatar')
+            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->orderBy('numb', 'asc')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $regularAuthor = MemberModel::select('fullname', 'avatar')
+            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->orderBy('numb', 'asc')
+            ->orderBy('id', 'desc')
+            ->get();
+
+
+        $productNB = ProductModel::select('namevi', 'photo', 'descvi', 'slugvi', 'regular_price', 'id_member', 'sale_price', 'discount', 'id', 'view', 'created_at')
             ->with('tags')
             ->with('getAuthor')
             ->where('type', 'truyen')
@@ -108,14 +102,6 @@ class HomeController extends Controller
             ->orderBy('numb', 'asc')
             ->orderBy('id', 'desc')
             ->limit(10)
-            ->get();
-
-       
-
-        $regularAuthor = MemberModel::select('fullname', 'avatar')
-            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
-            ->orderBy('numb', 'asc')
-            ->orderBy('id', 'desc')
             ->get();
 
         $productDS = ProductModel::select('namevi', 'photo', 'descvi', 'slugvi', 'regular_price', 'sale_price', 'discount', 'id')
@@ -134,15 +120,20 @@ class HomeController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        $memberNB = MemberModel::select('fullname', 'avatar')
+        $commentHome = CommentModel::select('*')
+            ->with('getVariant')
+            ->with('getUser')
+            ->where('type', 'truyen')
+            ->where('star', '>', 0)
             ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
-            ->orderBy('numb', 'asc')
-            ->orderBy('id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
 
-        $tags = TagsModel::select('id', 'namevi', 'slugvi', 'type')
-            ->where('type', 'san-pham')
+
+        $tagsHome = TagsModel::select('id', 'namevi', 'slugvi', 'type')
+            ->where('type', 'truyen')
             ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
+            ->whereRaw("FIND_IN_SET(?,status)", [ 'noibat' ])
             ->orderBy('numb', 'asc')
             ->orderBy('id', 'desc')
             ->get();
@@ -184,31 +175,19 @@ class HomeController extends Controller
 
     //     return view('ajax.homeProduct', [ 'productAjax' => $productAjax ]);
     // }
-
-    public function ajaxProduct(Request $request)
+    public function ajaxProductTags(Request $request)
     {
-        $idList = $request->get('idList') ?? 0;
-        $idCat = $request->get('idCat') ?? 0;
-        $eShow = $request->get('eShow') ?? '';
-        $type = $request->get('type') ?? 'san-pham';
-        $paginate = $request->get('paginate') ?? 8;
+        $idTags = $request->get('id') ?? 0;
 
-        $query = ProductModel::select('namevi', 'parametervi', 'photo', 'descvi', 'slugvi', 'regular_price', 'sale_price', 'discount', 'id')
-            ->where('type', $type)
-            ->whereRaw('FIND_IN_SET(?,status)', [ 'hienthi' ])
-            ->whereRaw('FIND_IN_SET(?,status)', [ 'noibat' ]);
+        $productTags = ProductModel::select('*')
+            ->with('tags')
+            ->whereHas('tags', function ($query) use ($idTags) {
+                $query->where('product_tags.id_tags', $idTags);
+            })
+            ->get();
 
-        if (!empty($idList)) {
-            $query->whereRaw('FIND_IN_SET(?,id_list)', [ $idList ]);
-            if (empty($idCat))
-                $productAjax = $query->orderBy('numb', 'asc')->orderBy('id', 'desc')->paginate($paginate);
-        }
 
-        if (!empty($idCat)) {
-            $query->whereRaw('FIND_IN_SET(?,id_cat)', [ $idCat ]);
-            $productAjax = $query->orderBy('numb', 'asc')->orderBy('id', 'desc')->paginate($paginate);
-        }
 
-        return view('ajax.homeProduct', [ 'productAjax' => $productAjax, 'idList' => $idList, 'idCat' => $idCat, 'eShow' => $eShow ]);
+        return view('ajax.homeProductTags', [ 'productTags' => $productTags ]);
     }
 }

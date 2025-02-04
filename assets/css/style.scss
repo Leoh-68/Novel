@@ -115,7 +115,7 @@ a {
 		border-radius: 5px 0px 0px 5px !important;
 		border: unset !important;
 		background-color: unset;
-		min-height: 44px;
+		min-height: 35px;
 		color: #747474;
 		&::placeholder {
 			color: #747474;
@@ -437,7 +437,6 @@ a.cart-header {
 .title-main {
 	margin-bottom: 1.5rem;
 	position: relative;
-
 	span,
 	h2,
 	h1,
@@ -449,10 +448,7 @@ a.cart-header {
 		font-weight: 800;
 		line-height: normal;
 		text-transform: uppercase;
-		background: var(--Ch-o, linear-gradient(90deg, #06743c 0%, #5faa21 100%));
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+		color: var(--color-main);
 	}
 }
 
@@ -1155,7 +1151,7 @@ a.views_dm {
 				font-size: 14px;
 				font-style: normal;
 				font-weight: 400;
-				line-height: 27px; /* 192.857% */
+				margin-bottom: 10px;
 			}
 		}
 	}
@@ -1296,7 +1292,7 @@ a.views_dm {
 
 .btn-rn {
 	display: inline-block;
-	padding: 10px 20px 10px 20px;
+	padding: 5px 20px 5px 20px;
 	border-radius: 5px;
 	cursor: pointer;
 	border: 1px solid var(--color-main);
@@ -1322,6 +1318,7 @@ a.views_dm {
 		line-height: normal;
 		text-transform: uppercase;
 	}
+	span{line-height: 10px;}
 	&:hover {
 		background-color: white;
 		a,
@@ -1383,7 +1380,9 @@ a.views_dm {
 						font-size: 14px;
 						font-style: normal;
 						font-weight: 400;
-						line-height: normal;
+						display: flex;
+						align-items: center;
+						gap: 10px;
 					}
 
 					.btn-favor {
@@ -1426,7 +1425,7 @@ a.views_dm {
 					border-radius: 0px 10px 10px 0px;
 				}
 				.image {
-					padding: 10px;
+					margin: 10px;
 					transition: all 0.4s;
 				}
 				.info {
@@ -1446,10 +1445,10 @@ a.views_dm {
 		background: url(../images/TempImages/bg-ranking-2.png) no-repeat center/100% 100%;
 	}
 	&.ranking-detail {
-		background: #FFF2FA;
+		background: #fff2fa;
 		border-radius: 10px;
 		padding: 0;
-		.page{
+		.page {
 			background: unset !important;
 		}
 	}
@@ -1574,6 +1573,9 @@ a.views_dm {
 						align-items: center;
 						gap: 10px;
 					}
+					a {
+						color: #4d4d4d;
+					}
 				}
 			}
 		}
@@ -1586,6 +1588,55 @@ button.swal2-confirm.swal2-styled {
 
 /* Comment */
 
+/* Voted */
+.history-voted {
+	.item {
+		margin: 3px;
+		padding: 10px;
+		border-radius: 10px;
+		background: #fff;
+		box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		.image {
+			padding: 0 0 5px 8px;
+			background: url(../images/TempImages/bg-book-2.png) no-repeat center/100% 100%;
+		}
+		.info {
+			.star {
+				i {
+					color: #ffa600;
+				}
+			}
+			.name-novel {
+				color: #c9184a;
+				font-family: SVN-Poppins;
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 700;
+				margin: 7px 0 2px 0;
+				text-transform: uppercase;
+			}
+			.content-vote {
+				color: #5e5e5e;
+				font-family: SVN-Poppins;
+				font-size: 13px;
+				font-style: normal;
+				font-weight: 400;
+				margin-bottom: 5px;
+			}
+			.user-vote-info {
+				.name {
+					color: #282828;
+					font-family: SVN-Poppins;
+					font-size: 14px;
+					font-style: normal;
+					font-weight: 700;
+					margin-bottom: 3px;
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+}
 /* Partner */
 
 .info-partner {
@@ -2209,7 +2260,7 @@ a {
 		background: #19c073;
 		border: 1px solid #19c073;
 		transition: all 0.3s ease;
-		cursor: pointer	;
+		cursor: pointer;
 		a {
 			color: #fff;
 			text-align: justify;
@@ -2219,13 +2270,13 @@ a {
 			font-weight: 400;
 			line-height: normal;
 		}
-		&:hover{
+		&:hover {
 			box-shadow: 0 0 10px #19c073;
 		}
 		&:nth-child(2) {
 			background-color: #bb53b6;
 			border: 1px solid #bb53b6;
-			&:hover{
+			&:hover {
 				box-shadow: 0 0 10px #bb53b6;
 			}
 			&.active {
@@ -2242,7 +2293,7 @@ a {
 		&:nth-child(4) {
 			background-color: #0d6efd;
 			border: 1px solid #0d6efd;
-			&:hover{
+			&:hover {
 				box-shadow: 0 0 10px #0d6efd;
 			}
 			&.active {
@@ -2264,11 +2315,10 @@ a {
 		padding: 40px 50px;
 		background: url(../images/TempImages/bg-author.png) no-repeat center/100% 100%;
 		.cover-avatar {
-			.avatar{
-				.avatar-user-merger{
+			.avatar {
+				.avatar-user-merger {
 					margin-bottom: 10px;
 				}
-				
 			}
 			.name {
 				color: #282828;

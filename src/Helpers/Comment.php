@@ -35,10 +35,10 @@ class Comment
     private function getStar($id, $type, $star = 1)
     {
         $row = CommentModel::selectRaw('count(*) as num')
-            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
+            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
             ->where('id_variant', $id)
-            ->where('type',  $type)
-            ->where('star',  $star)
+            ->where('type', $type)
+            ->where('star', $star)
             ->first();
 
         return (!empty($row)) ? $row['num'] : 0;
@@ -49,8 +49,9 @@ class Comment
         $query = CommentModel::select('count(id) as num')
             ->where('id_parent', 0)
             ->where('id_variant', $id_variant)
-            ->where('type',  $type);
-        if (!empty($is_admin)) $query->whereRaw("FIND_IN_SET(?,status)", ['hienthi']);
+            ->where('type', $type);
+        if (!empty($is_admin))
+            $query->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ]);
         $row = $query->orderBy('id', 'desc')
             ->first();
 
@@ -61,8 +62,8 @@ class Comment
     {
         $row = CommentModel::select('id_variant')
             ->where('id_variant', $id_variant)
-            ->where('type',  $type)
-            ->whereRaw("FIND_IN_SET(?,status)", [$status])
+            ->where('type', $type)
+            ->whereRaw("FIND_IN_SET(?,status)", [ $status ])
             ->orderBy('id', 'desc')
             ->get();
 
@@ -99,9 +100,9 @@ class Comment
     private function totalStar($id = 0, $type = '')
     {
         $row = CommentModel::selectRaw('sum(star) as total_star')
-            ->whereRaw("FIND_IN_SET(?,status)", ['hienthi'])
+            ->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])
             ->where('id_variant', $id)
-            ->where('type',  $type)
+            ->where('type', $type)
             ->first();
         return $row['total_star'];
     }
@@ -110,8 +111,21 @@ class Comment
     {
         $query = CommentModel::selectRaw('count(id) as sum')
             ->where('id_parent', $id);
-        if (!empty($check)) $query->whereRaw("FIND_IN_SET(?,status)", ['hienthi']);
-        if (empty($check)) $query->whereRaw("NOT FIND_IN_SET(?,status)", ['hienthi']);
+        if (!empty($check))
+            $query->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ]);
+        if (empty($check))
+            $query->whereRaw("NOT FIND_IN_SET(?,status)", [ 'hienthi' ]);
+        $row = $query->first();
+
+        return $row['sum'];
+    }
+
+    public function countReplyByUser($id_user = 0)
+    {
+        $query = CommentModel::selectRaw('count(table_comment.id) as sum')
+            ->join('product', 'product.id', '=', 'comment.id_variant')
+            ->where('product.id_member', $id_user)
+            ->whereRaw("NOT FIND_IN_SET(?,table_comment.status)", [ 'hienthi' ]);
         $row = $query->first();
 
         return $row['sum'];
@@ -124,8 +138,9 @@ class Comment
         $query = CommentModel::select('*')
             ->where('id_parent', 0)
             ->where('id_variant', $id)
-            ->where('type',  $type);
-        if (!empty($is_admin)) $query->whereRaw("FIND_IN_SET(?,status)", ['hienthi']);
+            ->where('type', $type);
+        if (!empty($is_admin))
+            $query->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ]);
         $rows = $query->orderBy('date_posted', 'desc')
             ->get();
 
@@ -139,12 +154,12 @@ class Comment
 
     public function avgStar($id = 0, $type = '')
     {
-        return (!empty($this->total($id, $type))) ? ($this->totalStar($id, $type) * 100) / ($this->total($id, $type) * 5) : 0;
+        return (!empty($this->total($id, $type))) ? ($this->totalStar($id, $type) * 100) / ($this->total($id, $type) * 10) : 0;
     }
 
     public function scoreStar($star = 0)
     {
-        return (!empty($star)) ? ($star * 100) / 5 : 0;
+        return (!empty($star)) ? ($star * 100) / 10 : 0;
     }
 
 
@@ -183,12 +198,12 @@ class Comment
             $result = $lang['now'];
         } else {
             $unit = [
-                365 * 24 * 60 * 60  =>  'y',
-                30 * 24 * 60 * 60  =>  'm',
-                24 * 60 * 60  =>  'd',
-                60 * 60  =>  'h',
-                60  =>  'm',
-                1  =>  's'
+                365 * 24 * 60 * 60 => 'y',
+                30 * 24 * 60 * 60 => 'm',
+                24 * 60 * 60 => 'd',
+                60 * 60 => 'h',
+                60 => 'm',
+                1 => 's'
             ];
 
             foreach ($unit as $secs => $key) {

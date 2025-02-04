@@ -48,6 +48,16 @@ class ProductController extends Controller
         $this->seoPage($titleMain, $this->infoSeo('product', $this->type, 'type', 'index'));
         return View::share([ 'com' => $this->type ])->view('product.product', compact('product', 'titleMain'));
     }
+    public function indexByStatus(Request $request)
+    {
+
+        $product = $this->productItem('', $request, 'truyen');
+        $titleMain = $request->get('status') == 'hoan-thanh' ? 'Truyện hoàn thành' : 'Truyện đang tiến hành';
+        // $titleMain = __('web.' . $titleMain);
+        BreadCrumbs::setBreadcrumb(type: 'truyen', title: $titleMain);
+        $this->seoPage($titleMain, $this->infoSeo('product', 'truyen', 'type', 'index'));
+        return View::share([ 'com' => $request->get('status') ])->view('product.product', compact('product', 'titleMain'));
+    }
 
     public function list($slug, Request $request)
     {
@@ -133,7 +143,7 @@ class ProductController extends Controller
     }
     public function detail($slug)
     {
-       
+
         $rowDetail = ProductModel::select('*')->where(function ($query) use ($slug) {
             $query->where("slugvi", $slug)->orwhere("slugen", $slug);
         })->whereRaw("FIND_IN_SET(?,status)", [ 'hienthi' ])->first();
@@ -206,7 +216,7 @@ class ProductController extends Controller
         }
 
 
-        return View::share([ 'idList' => $rowDetail['id_list'], 'com' => $this->type ])->view($view, compact('rowDetail', 'product', 'tags', 'rowChapter', 'rowChapterNew', 'authorInfo','archievement'));
+        return View::share([ 'idList' => $rowDetail['id_list'], 'com' => $this->type ])->view($view, compact('rowDetail', 'product', 'tags', 'rowChapter', 'rowChapterNew', 'authorInfo', 'archievement'));
     }
 
     public function searchProduct(Request $request)
@@ -264,6 +274,8 @@ class ProductController extends Controller
         // Mặc định sắp xếp
         $defaultOrderBy = [ 'numb' => 'asc', 'id' => 'desc' ];
         $propaties = $request->getQueryString() ?? '';
+        $status = $request->get('status') ?? '';
+
         // Lấy thông tin sản phẩm cần truy vấn
 
         if (!empty($array)) {
@@ -284,8 +296,11 @@ class ProductController extends Controller
             ]);
         } else {
             $query = ProductModel::select('id', 'namevi', 'photo', 'descvi', 'slugvi', 'status', 'numb', 'sale_price', 'regular_price', 'id_member')
-                ->where('type', $slug);
+                ->where('type', $slug)
+                ->with('tags')
+                ->with('getAuthor');
         }
+
         // Nếu có tham số lọc từ query string
         if (!empty($propaties)) {
             parse_str($propaties, $result);
@@ -319,6 +334,19 @@ class ProductController extends Controller
             });
         }
 
+        if (!empty($status)) {
+            switch ($status) {
+                case 'dang-tien-hanh':
+                    $query->whereRaw("NOT FIND_IN_SET(?,status)", [ 'hoanthanh' ]);
+                    break;
+                case 'hoan-thanh':
+                    $query->whereRaw("FIND_IN_SET(?,status)", [ 'hoanthanh' ]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         // Áp dụng sắp xếp dựa trên thứ tự mặc định hoặc từ bộ lọc
         foreach ($defaultOrderBy as $column => $direction) {
             // Kiểm tra nếu regular_sale > 0 thì ưu tiên sắp xếp theo regular_sale
@@ -329,7 +357,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = $query->paginate(12);
+        $product = $query->paginate(10);
         return $product;
     }
 

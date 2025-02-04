@@ -83,36 +83,46 @@
                                          @endif
                                      </a>
                                  </div>
-                                 <div class="item">
-                                     <a href="{{ url('memberHome.upload', ['com' => 'product', 'act' => 'add', 'type' => 'truyen']) }}"
-                                         class=" text-decoration-none flex items-center gap-2 ">
-                                         <div class="ico">
-                                             <i class="fa-solid fa-upload"></i>
-                                         </div>
-
-                                         <span>Thêm truyện mới</span>
-                                     </a>
-                                 </div>
-
-                             </div>
-                             <div class="cover-tag-info">
-                                 <div class="row  items-stretch" style="--bs-gutter-x: 15px;">
-                                     <div class="col-12 mt-3">
-                                         <div class="info-tag h-full">
-                                             <div class="title">
-                                                 <span>
-                                                     Số truyện đã đăng
-                                                 </span>
+                                 @if ($rowDetail['type'] != 'reader')
+                                     <div class="item">
+                                         <a href="{{ url('memberHome.comment', ['com' => 'comment', 'act' => 'list', 'type' => 'comment']) }}"
+                                             class="relative text-decoration-none flex items-center gap-2 ">
+                                             <div class="ico">
+                                                 <i class="fa-solid fa-comment"></i>
                                              </div>
-                                             <div class="info">
-                                                 <span>
-                                                     {{ Func::counterProductMember(Auth::guard('member')->user()->id) ?? 0 }}
+                                             <span>
+                                                 Quản lý bình luận
+                                             </span>
+
+                                             @if (!empty(Comment::countReplyByUser(Auth::guard('member')->user()->id)))
+                                                 <span class="noti-dot animate__pulse">
+
                                                  </span>
+                                             @endif
+                                         </a>
+                                     </div>
+                                 @endif
+                             </div>
+                             @if ($rowDetail['type'] != 'reader')
+                                 <div class="cover-tag-info">
+                                     <div class="row  items-stretch" style="--bs-gutter-x: 15px;">
+                                         <div class="col-12 mt-3">
+                                             <div class="info-tag h-full">
+                                                 <div class="title">
+                                                     <span>
+                                                         Số truyện đã đăng
+                                                     </span>
+                                                 </div>
+                                                 <div class="info">
+                                                     <span>
+                                                         {{ Func::counterProductMember(Auth::guard('member')->user()->id) ?? 0 }}
+                                                     </span>
+                                                 </div>
                                              </div>
                                          </div>
                                      </div>
                                  </div>
-                             </div>
+                             @endif
                          </div>
                      </div>
                  </div>

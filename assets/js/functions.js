@@ -1,5 +1,16 @@
 
 
+async function loadImage(imageLink, targetId) {
+    const response = await fetch(imageLink); // Tải ảnh
+    const blob = await response.blob(); // Chuyển thành Blob
+    const file = new File([blob], "avt" + Math.random() + ".png", { type: blob.type }); // Tạo file
+    const dataTransfer = new DataTransfer(); // Tạo DataTransfer
+    dataTransfer.items.add(file); // Thêm file vào DataTransfer
+    document.getElementById(targetId).files = dataTransfer.files; // Gán vào input file
+	console.log('Complete');
+	
+}
+
 function mergeCircularAvatarWithBorder(avatarSrc, borderSrc, callback) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');

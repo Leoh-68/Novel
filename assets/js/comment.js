@@ -117,9 +117,10 @@ class Comments {
 		const stars = target.parentNode.querySelectorAll('i');
 
 		stars.forEach((star) => {
-
-			if (star.getAttribute('data-value') <= id) {
-
+			if (parseInt(star.getAttribute('data-value')) <= parseInt(id)) {
+			
+				console.log(star.getAttribute('data-value'), id, parseInt(star.getAttribute('data-value')) <= parseInt(id));
+				
 				star.classList.remove('star-empty');
 
 			}

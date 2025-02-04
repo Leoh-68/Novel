@@ -35,57 +35,6 @@
                         enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-12 col-lg-6">
-                                <div class="cover-img-member">
-
-
-                                    <label for="file-avatar">Ảnh đại diện</label>
-                                    @php
-                                        /* Photo detail */
-                                        $photoDetail = [];
-                                        $photoAction = 'photo';
-                                        $photoDetail['upload'] = 'user';
-                                        $photoDetail['image'] = !empty($rowDetail['avatar'])
-                                            ? $rowDetail['avatar']
-                                            : '';
-                                        $photoDetail['dimension'] =
-                                            'Width: 1200 px - Height: 300 px (' . config('type.type_img') . ')';
-                                    @endphp
-                                    @component('component.image', ['photoDetail' => $photoDetail, 'photoAction' => 'photo', 'key' => 'avatar'])
-                                    @endcomponent
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <div class="cover-img-member">
-                                    <label for="file-banner">Banner</label>
-                                    @php
-                                        /* Photo detail */
-                                        $photoDetail = [];
-                                        $photoAction = 'photo';
-                                        $photoDetail['upload'] = 'user';
-                                        $photoDetail['image'] = !empty($rowDetail['banner'])
-                                            ? $rowDetail['banner']
-                                            : '';
-                                        $photoDetail['dimension'] =
-                                            'Width: 600 px - Height: 200 px (' . config('type.type_img') . ')';
-                                    @endphp
-                                    @component('component.image', ['photoDetail' => $photoDetail, 'photoAction' => 'photo', 'key' => 'banner'])
-                                    @endcomponent
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <label>{{ __('web.hoten') }}</label>
-                                <div class="input-group input-user">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-user"></i></div>
-                                    </div>
-                                    <input type="text" class="form-control text-sm" id="fullname" name="fullname"
-                                        placeholder="{{ __('web.nhaphoten') }}" value="<?= $rowDetail['fullname'] ?>"
-                                        required>
-                                    <div class="invalid-feedback">{{ __('web.vuilongnhaphoten') }}</div>
-
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6">
                                 <label>{{ __('web.taikhoan') }}</label>
                                 <div class="input-group input-user">
                                     <div class="input-group-prepend">
@@ -153,9 +102,21 @@
                                 </div>
                             </div>
 
+                            <div class="col-12 col-lg-6">
+                                <label>{{ __('web.hoten') }}</label>
+                                <div class="input-group input-user">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    <input type="text" class="form-control text-sm" id="fullname" name="fullname"
+                                        placeholder="{{ __('web.nhaphoten') }}" value="<?= $rowDetail['fullname'] ?>"
+                                        required>
+                                    <div class="invalid-feedback">{{ __('web.vuilongnhaphoten') }}</div>
 
+                                </div>
+                            </div>
 
-                            <div class="col-12">
+                            <div class="col-12 ">
                                 <label>{{ __('web.diachi') }}</label>
                                 <div class="input-group input-user">
                                     <div class="input-group-prepend">
@@ -167,48 +128,176 @@
                                     <div class="invalid-feedback">{{ __('web.vuilongnhapdiachi') }}</div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cover-img-member">
+
+
+                                    <label for="file-avatar">Ảnh đại diện</label>
+                                    @php
+                                        /* Photo detail */
+                                        $photoDetail = [];
+                                        $photoAction = 'photo';
+                                        $photoDetail['upload'] = 'user';
+                                        $photoDetail['image'] = !empty($rowDetail['avatar'])
+                                            ? $rowDetail['avatar']
+                                            : '';
+                                        $photoDetail['dimension'] =
+                                            'Width: 1200 px - Height: 300 px (' . config('type.type_img') . ')';
+                                    @endphp
+                                    <div class="photoUpload-zone">
+                                        <div class="crop-view-popup d-block  mx-auto">
+                                            <div class="setting-crop">
+                                                <input type="" name="additionalData" id="additionalData"
+                                                    value="someAdditionalData">
+                                                <ul class="mb-3 hide-crop ">
+                                                    <li>
+                                                        <button id="cropButton-avatar" type="button"
+                                                            class="cropButton btn-primary btn-crop-img"><i
+                                                                class="ti ti-crop"></i> Cắt ảnh</button>
+                                                    </li>
+                                                </ul>
+                                                <div class="actions mb-3 mt-2" id="actions-avatar">
+                                                    <div class="docs-buttons">
+                                                        <!-- <h3>Toolbar:</h3> -->
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-method="rotate" data-option="-45"
+                                                                title="Rotate Left">
+                                                                <span class="docs-tooltip" data-toggle="tooltip"
+                                                                    title="cropper.rotate(-45)">
+                                                                    <i class="ti ti-rotate-2"></i>
+                                                                </span>
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-method="rotate" data-option="45"
+                                                                title="Rotate Right">
+                                                                <span class="docs-tooltip" data-toggle="tooltip"
+                                                                    title="cropper.rotate(45)">
+                                                                    <i class="ti ti-rotate-clockwise-2"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-method="zoom" data-option="0.1" title="Zoom In">
+                                                                <span class="docs-tooltip" data-toggle="tooltip"
+                                                                    title="cropper.zoom(0.1)">
+                                                                    <i class="ti ti-zoom-in"></i>
+                                                                </span>
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-method="zoom" data-option="-0.1" title="Zoom Out">
+                                                                <span class="docs-tooltip" data-toggle="tooltip"
+                                                                    title="cropper.zoom(-0.1)">
+                                                                    <i class="ti ti-zoom-out"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="docs-data px-2">
+                                                            <div class="input-group  my-2">
+                                                                <input type="number" class="form-control cropWidth"
+                                                                    id="cropWidth-avatar" placeholder="width">
+                                                                <span class="input-group-append">
+                                                                    <span class="input-group-text">px</span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="input-group  my-2">
+                                                                <input type="number" class="form-control cropHeight"
+                                                                    id="cropHeight-avatar" placeholder="height">
+                                                                <span class="input-group-append">
+                                                                    <span class="input-group-text">px</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="btn-group px-2 w-100">
+                                                            <button type="button" class="btn btn-primary crop-reset"
+                                                                id="crop-reset-avatar" data-method="reset"
+                                                                title="Reset">
+                                                                <span class="docs-tooltip" data-toggle="tooltip"
+                                                                    title="cropper.reset()">
+                                                                    <i class="ti ti-refresh"></i> Làm lại
+                                                                </span>
+                                                            </button>
+                                                        </div>
+
+                                                        <!-- Show the cropped image in modal -->
+                                                    </div><!-- /.docs-buttons -->
+                                                </div>
+                                                <ul>
+                                                    <li>
+                                                        <button id="saveButton-avatar" type="button"
+                                                            class="saveButton  btn-primary btn-crop-img"><i
+                                                                class="ti ti-circle-plus"></i> Áp dụng</button>
+                                                    </li>
+                                                </ul>
+                                                <div class="view-size">{{ $photoDetail['dimension'] }}</div>
+                                            </div>
+
+
+                                            
+                                         
+                                            <div class="view-cropper">
+                                                <div class="photoUpload-detail" id="photoUpload-preview-avatar">
+                                                    @if (!empty($photoDetail['image']))
+                                                        <a class="img-container">
+                                                            <img class="rounded"
+                                                                onerror="this.src='./assets/images/noimage.png';"
+                                                                data-src="{{ upload($photoDetail['upload'], $photoDetail['image']) }}"
+                                                                src="{{ upload($photoDetail['upload'], $photoDetail['image']) }}"
+                                                                alt="Alt photo" title="Alt photo" />
+                                                        </a>
+                                                    @else
+                                                        <img class="rounded"
+                                                            onerror="this.src='./assets/images/noimage.png';"
+                                                            src="{{ upload($photoDetail['upload'], $photoDetail['image']) }}"
+                                                            alt="Alt photo" title="Alt photo" />
+                                                    @endif
+
+                                                    <button type="button" hidden
+                                                        class="crop-popup btn-primary btn-crop-img mt-3 "
+                                                        id="crop-popup-avatar">Chỉnh sửa ảnh</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="file-photo">
+                                            <label class="photoUpload-file" id="photo-zone-avatar"
+                                                for="file-zone-avatar">
+                                                <input type="file" class="file-zone-avatar" name="file-avatar"
+                                                    id="file-zone-avatar">
+                                                <input type="hidden" class="cropFile" name="cropFile-avatar"
+                                                    id="cropFile-avatar">
+                                                <i class="ti ti-cloud-upload"></i>
+                                                <p class="photoUpload-drop">Kéo và thả hình vào đây</p>
+                                                <p class="photoUpload-or">Hoặc</p>
+                                                <p class="photoUpload-choose btn btn-sm">Chọn hình</p>
+                                            </label>
+                                            <div class="photoUpload-dimension">{{ $photoDetail['dimension'] }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="cover-img-member">
+                                    <label for="file-banner">Banner</label>
+                                    @php
+                                        /* Photo detail */
+                                        $photoDetail = [];
+                                        $photoAction = 'photo';
+                                        $photoDetail['upload'] = 'user';
+                                        $photoDetail['image'] = !empty($rowDetail['banner'])
+                                            ? $rowDetail['banner']
+                                            : '';
+                                        $photoDetail['dimension'] =
+                                            'Width: 600 px - Height: 200 px (' . config('type.type_img') . ')';
+                                    @endphp
+                                    @component('component.image', ['photoDetail' => $photoDetail, 'photoAction' => 'photo', 'key' => 'banner'])
+                                    @endcomponent
+                                </div>
+                            </div>
                         </div>
-
-                        {{-- <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-[10px]">
-                                    <div class="input-cart">
-                                        <select class="select-city-cart form-select form-control text-sm" required
-                                            id="city" name="dataAddress[city]">
-                                            <option value="">Tỉnh thành</option>
-                                            @foreach ($city ?? [] as $k => $v)
-                                                <option value="{{ $v->id }}"
-                                                    @if (!empty($addressPicked['city']) && $v->id == $addressPicked['city']['id']) selected @endif>{{ $v->namevi }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Vui lòng chọn tỉnh thành</div>
-                                    </div>
-                                    <div class="input-cart">
-                                        <select
-                                            class="select-district-cart select-district form-select form-control text-sm"
-                                            required id="district" name="dataAddress[district]">
-                                            @if (!empty($addressPicked['district']))
-                                                <option value="{{ $addressPicked['district']['id'] }}" selected>
-                                                    {{ $addressPicked['district']['name'] }}</option>
-                                            @else
-                                                <option value="">Quận huyện</option>
-                                            @endif
-                                        </select>
-                                        <div class="invalid-feedback">Vui lòng chọn quận huyện</div>
-                                    </div>
-                                    <div class="input-cart">
-                                        <select class="select-ward-cart select-ward form-select form-control text-sm"
-                                            required id="ward" name="dataAddress[ward]">
-                                            @if (!empty($addressPicked['ward']))
-                                                <option value="{{ $addressPicked['ward']['id'] }}" selected>
-                                                    {{ $addressPicked['ward']['name'] }}</option>
-                                            @else
-                                                <option value="">Phường xã</option>
-                                            @endif
-                                        </select>
-                                        <div class="invalid-feedback">Vui lòng chọn phường xã</div>
-                                    </div>
-                                </div> --}}
-
 
                         <div class="button-user">
                             <input type="hidden" name="id" value="{{ $rowDetail['id'] }}">
@@ -242,54 +331,5 @@
                 maxDate: new Date()
             });
         }
-
-        // document.querySelector('body').addEventListener('change', (e) => {
-        //     if (e.target.closest('.select-city-cart')) {
-        //         this.getDistrict(e.target.closest('.select-city-cart'));
-        //     } else if (e.target.matches('.select-district-cart')) {
-        //         this.getWard(e.target.closest('.select-district-cart'));
-        //     }
-        // });
-
-
-        // getDistrict(target) {
-        //     const selectCity = document.querySelector('.select-city-cart');
-        //     const selectDistrict = document.querySelector('.select-district-cart');
-        //     const id = selectCity.value;
-        //     holdonOpen();
-        //     var form_data = new FormData();
-        //     form_data.append('id', id);
-        //     fetch(this.base_url + 'cart/get-district', {
-        //             method: 'POST',
-        //             body: form_data
-        //         })
-        //         .then((response) => response.json())
-        //         .then((result) => {
-        //             if (result.districts) {
-        //                 this.populateSelect(result.districts, selectDistrict);
-        //             }
-        //             holdonClose();
-        //         });
-        // }
-
-        // getWard(target) {
-        //     const selectCity = document.querySelector('.select-district-cart');
-        //     const selectDistrict = document.querySelector('.select-ward-cart');
-        //     const id = selectCity.value;
-        //     holdonOpen();
-        //     var form_data = new FormData();
-        //     form_data.append('id', id);
-        //     fetch(this.base_url + 'cart/get-ward', {
-        //             method: 'POST',
-        //             body: form_data
-        //         })
-        //         .then((response) => response.json())
-        //         .then((result) => {
-        //             if (result.wards) {
-        //                 this.populateSelect(result.wards, selectDistrict);
-        //             }
-        //             holdonClose();
-        //         });
-        // }
     </script>
 @endpush
