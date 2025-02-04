@@ -2093,6 +2093,9 @@ NN_FRAMEWORK.myJs = function () {
 
   $(".popup-avatar").click(function () {
     $("#AvatarModel").modal("show");
+    $(".change-img").click(function () {
+		$('#photoUpload-preview-avatar').find("img").attr("src",$(this).find("img").attr("src"));
+    });
   });
 };
 

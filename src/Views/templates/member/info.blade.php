@@ -327,7 +327,7 @@
                             @isset($aavatar)
                                 @if (count($aavatar))
                                     @foreach ($aavatar as $v)
-                                        <a class="col-lg-2 mb-3" data-bs-dismiss="modal" aria-label="Close" onclick="loadImage('{{assets_photo('photo', '200x200x1', $v->photo, 'thumbs')}}','file-zone-avatar')">
+                                        <a class="col-lg-2 mb-3 change-img" data-bs-dismiss="modal" aria-label="Close" onclick="loadImage('{{assets_photo('photo', '200x200x1', $v->photo, 'thumbs')}}','file-zone-avatar')">
                                             <img class='w-100 lazy'
                                                 onerror="this.src='{{ thumbs('thumbs/200x200x1/assets/images/noimage.png') }}';"
                                                 src="{{ thumbs('thumbs/200x200x1/assets/images/noimage.png') }}"
